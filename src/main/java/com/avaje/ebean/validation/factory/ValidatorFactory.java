@@ -7,8 +7,8 @@ import java.lang.annotation.Annotation;
  */
 public interface ValidatorFactory {
 
-	/**
-	 * Create the validator given the annotation.
-	 */
-	public Validator create(Annotation annotation, Class<?> type);
+  /**
+   * Create the validator given the annotation.
+   */
+  public Validator create(Annotation annotation, Class<?> type);
 }

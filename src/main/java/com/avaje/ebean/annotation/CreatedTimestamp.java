@@ -24,9 +24,8 @@ import java.lang.annotation.Target;
  * Timestamp cretimestamp;
  * </pre>
  */
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CreatedTimestamp {
-
 
 };

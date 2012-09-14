@@ -15,14 +15,14 @@ import javax.naming.directory.Attribute;
  */
 public interface LdapAttributeAdapter {
 
-    /**
-     * Read the attribute and convert its value to the bean value.
-     */
-    public Object readAttribute(Attribute attribute) throws NamingException;
+  /**
+   * Read the attribute and convert its value to the bean value.
+   */
+  public Object readAttribute(Attribute attribute) throws NamingException;
 
-    /**
-     * Read the bean property value and creating the appropriate attribute.
-     */
-    public Attribute createAttribute(Object beanPropertyValue);
+  /**
+   * Read the bean property value and creating the appropriate attribute.
+   */
+  public Attribute createAttribute(Object beanPropertyValue);
 
 }

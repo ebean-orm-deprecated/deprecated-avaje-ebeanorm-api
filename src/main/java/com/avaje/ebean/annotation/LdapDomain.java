@@ -10,17 +10,18 @@ import java.lang.annotation.Target;
  * 
  * @author rbygrave
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LdapDomain {
 
-    /**
-     * Specify a base DN.
-     */
-    String baseDn() default "";
-    
-    /**
-     * Specify a comma delimited list of object classes for this type of Ldap object.
-     */
-    String objectclass() default "";
+  /**
+   * Specify a base DN.
+   */
+  String baseDn() default "";
+
+  /**
+   * Specify a comma delimited list of object classes for this type of Ldap
+   * object.
+   */
+  String objectclass() default "";
 };

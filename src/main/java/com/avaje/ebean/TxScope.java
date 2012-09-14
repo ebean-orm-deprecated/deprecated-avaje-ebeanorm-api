@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * This object is used internally with the enhancement of a method with
  * Transactional annotation.
  * </p>
+ * 
  * @see TxCallable
  * @see TxRunnable
  * @see Ebean#execute(TxScope, TxCallable)
@@ -21,210 +22,210 @@ import java.util.ArrayList;
  */
 public final class TxScope {
 
-	TxType type;
-	
-	String serverName;
+  TxType type;
 
-	TxIsolation isolation;
+  String serverName;
 
-	boolean readOnly;
+  TxIsolation isolation;
 
-	ArrayList<Class<? extends Throwable>> rollbackFor;
+  boolean readOnly;
 
-	ArrayList<Class<? extends Throwable>> noRollbackFor;
+  ArrayList<Class<? extends Throwable>> rollbackFor;
 
-	/**
-	 * Helper method to create a TxScope with REQUIRES.
-	 */
-	public static TxScope required() {
-		return new TxScope(TxType.REQUIRED);
-	}
-	
-	/**
-	 * Helper method to create a TxScope with REQUIRES_NEW.
-	 */
-	public static TxScope requiresNew() {
-		return new TxScope(TxType.REQUIRES_NEW);
-	}
+  ArrayList<Class<? extends Throwable>> noRollbackFor;
 
-	/**
-	 * Helper method to create a TxScope with MANDATORY.
-	 */
-	public static TxScope mandatory() {
-		return new TxScope(TxType.MANDATORY);
-	}
-	
-	/**
-	 * Helper method to create a TxScope with SUPPORTS.
-	 */
-	public static TxScope supports() {
-		return new TxScope(TxType.SUPPORTS);
-	}
-	
-	/**
-	 * Helper method to create a TxScope with NOT_SUPPORTED.
-	 */
-	public static TxScope notSupported() {
-		return new TxScope(TxType.NOT_SUPPORTED);
-	}
-	
-	/**
-	 * Helper method to create a TxScope with NEVER.
-	 */
-	public static TxScope never() {
-		return new TxScope(TxType.NEVER);
-	}
+  /**
+   * Helper method to create a TxScope with REQUIRES.
+   */
+  public static TxScope required() {
+    return new TxScope(TxType.REQUIRED);
+  }
 
-	/**
-	 * Create a REQUIRED transaction scope.
-	 */
-	public TxScope() {
-		this.type = TxType.REQUIRED;
-	}
+  /**
+   * Helper method to create a TxScope with REQUIRES_NEW.
+   */
+  public static TxScope requiresNew() {
+    return new TxScope(TxType.REQUIRES_NEW);
+  }
 
-	/**
-	 * Create with a given transaction scope type.
-	 */
-	public TxScope(TxType type) {
-		this.type = type;
-	}
+  /**
+   * Helper method to create a TxScope with MANDATORY.
+   */
+  public static TxScope mandatory() {
+    return new TxScope(TxType.MANDATORY);
+  }
 
-	/**
-	 * Describes this TxScope instance.
-	 */
-	public String toString() {
-		return "TxScope[" + type + "] readOnly[" + readOnly + "] isolation[" + isolation + "] serverName["+serverName
-				+"] rollbackFor["+ rollbackFor + "] noRollbackFor[" + noRollbackFor + "]";
-	}
+  /**
+   * Helper method to create a TxScope with SUPPORTS.
+   */
+  public static TxScope supports() {
+    return new TxScope(TxType.SUPPORTS);
+  }
 
-	/**
-	 * Return the transaction type.
-	 */
-	public TxType getType() {
-		return type;
-	}
+  /**
+   * Helper method to create a TxScope with NOT_SUPPORTED.
+   */
+  public static TxScope notSupported() {
+    return new TxScope(TxType.NOT_SUPPORTED);
+  }
 
-	/**
-	 * Set the transaction type.
-	 */
-	public TxScope setType(TxType type) {
-		this.type = type;
-		return this;
-	}
+  /**
+   * Helper method to create a TxScope with NEVER.
+   */
+  public static TxScope never() {
+    return new TxScope(TxType.NEVER);
+  }
 
-	/**
-	 * Return if the transaction should be treated as read only.
-	 */
-	public boolean isReadonly() {
-		return readOnly;
-	}
+  /**
+   * Create a REQUIRED transaction scope.
+   */
+  public TxScope() {
+    this.type = TxType.REQUIRED;
+  }
 
-	/**
-	 * Set if the transaction should be treated as read only.
-	 */
-	public TxScope setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
-		return this;
-	}
+  /**
+   * Create with a given transaction scope type.
+   */
+  public TxScope(TxType type) {
+    this.type = type;
+  }
 
-	/**
-	 * Return the Isolation level this transaction should run with.
-	 */
-	public TxIsolation getIsolation() {
-		return isolation;
-	}
+  /**
+   * Describes this TxScope instance.
+   */
+  public String toString() {
+    return "TxScope[" + type + "] readOnly[" + readOnly + "] isolation[" + isolation
+        + "] serverName[" + serverName
+        + "] rollbackFor[" + rollbackFor + "] noRollbackFor[" + noRollbackFor + "]";
+  }
 
-	/**
-	 * Set the transaction isolation level this transaction should run with.
-	 */
-	public TxScope setIsolation(TxIsolation isolation) {
-		this.isolation = isolation;
-		return this;
-	}
+  /**
+   * Return the transaction type.
+   */
+  public TxType getType() {
+    return type;
+  }
 
-	
-	/**
-	 * Return the serverName for this transaction. If this is null then the
-	 * default server (default DataSource) will be used.
-	 */
-	public String getServerName() {
-		return serverName;
-	}
+  /**
+   * Set the transaction type.
+   */
+  public TxScope setType(TxType type) {
+    this.type = type;
+    return this;
+  }
 
-	/**
-	 * Set the serverName (DataSource name) for which this transaction
-	 * will be. If the serverName is not specified (left null) then the
-	 * default server will be used. 
-	 */
-	public TxScope setServerName(String serverName) {
-		this.serverName = serverName;
-		return this;
-	}
+  /**
+   * Return if the transaction should be treated as read only.
+   */
+  public boolean isReadonly() {
+    return readOnly;
+  }
 
-	/**
-	 * Return the throwable's that should cause a rollback.
-	 */
-	public ArrayList<Class<? extends Throwable>> getRollbackFor() {
-		return rollbackFor;
-	}
+  /**
+   * Set if the transaction should be treated as read only.
+   */
+  public TxScope setReadOnly(boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
 
-	/**
-	 * Set a Throwable that should explicitly cause a rollback.
-	 */
-	public TxScope setRollbackFor(Class<? extends Throwable> rollbackThrowable) {
-		if (rollbackFor == null) {
-			rollbackFor = new ArrayList<Class<? extends Throwable>>(2);
-		}
-		rollbackFor.add(rollbackThrowable);
-		return this;
-	}
+  /**
+   * Return the Isolation level this transaction should run with.
+   */
+  public TxIsolation getIsolation() {
+    return isolation;
+  }
 
-	/**
-	 * Set multiple throwable's that will cause a rollback.
-	 */
-	@SuppressWarnings("unchecked")
-	public TxScope setRollbackFor(Class<?>[] rollbackThrowables) {
-		if (rollbackFor == null) {
-			rollbackFor = new ArrayList<Class<? extends Throwable>>(rollbackThrowables.length);
-		}
-		for (int i = 0; i < rollbackThrowables.length; i++) {
-			rollbackFor.add((Class<? extends Throwable>) rollbackThrowables[i]);
-		}
-		return this;
-	}
+  /**
+   * Set the transaction isolation level this transaction should run with.
+   */
+  public TxScope setIsolation(TxIsolation isolation) {
+    this.isolation = isolation;
+    return this;
+  }
 
-	/**
-	 * Return the throwable's that should NOT cause a rollback.
-	 */
-	public ArrayList<Class<? extends Throwable>> getNoRollbackFor() {
-		return noRollbackFor;
-	}
+  /**
+   * Return the serverName for this transaction. If this is null then the
+   * default server (default DataSource) will be used.
+   */
+  public String getServerName() {
+    return serverName;
+  }
 
-	/**
-	 * Add a Throwable to a list that will NOT cause a rollback. You are able to
-	 * call this method multiple times with different throwable's and they will
-	 * added to a list.
-	 */
-	public TxScope setNoRollbackFor(Class<? extends Throwable> noRollback) {
-		if (noRollbackFor == null) {
-			noRollbackFor = new ArrayList<Class<? extends Throwable>>(2);
-		}
-		this.noRollbackFor.add(noRollback);
-		return this;
-	}
+  /**
+   * Set the serverName (DataSource name) for which this transaction will be. If
+   * the serverName is not specified (left null) then the default server will be
+   * used.
+   */
+  public TxScope setServerName(String serverName) {
+    this.serverName = serverName;
+    return this;
+  }
 
-	/**
-	 * Set multiple throwable's that will NOT cause a rollback.
-	 */
-	@SuppressWarnings("unchecked")
-	public TxScope setNoRollbackFor(Class<?>[] noRollbacks) {
-		if (noRollbackFor == null) {
-			noRollbackFor = new ArrayList<Class<? extends Throwable>>(noRollbacks.length);
-		}
-		for (int i = 0; i < noRollbacks.length; i++) {
-			noRollbackFor.add((Class<? extends Throwable>) noRollbacks[i]);
-		}
-		return this;
-	}
+  /**
+   * Return the throwable's that should cause a rollback.
+   */
+  public ArrayList<Class<? extends Throwable>> getRollbackFor() {
+    return rollbackFor;
+  }
+
+  /**
+   * Set a Throwable that should explicitly cause a rollback.
+   */
+  public TxScope setRollbackFor(Class<? extends Throwable> rollbackThrowable) {
+    if (rollbackFor == null) {
+      rollbackFor = new ArrayList<Class<? extends Throwable>>(2);
+    }
+    rollbackFor.add(rollbackThrowable);
+    return this;
+  }
+
+  /**
+   * Set multiple throwable's that will cause a rollback.
+   */
+  @SuppressWarnings("unchecked")
+  public TxScope setRollbackFor(Class<?>[] rollbackThrowables) {
+    if (rollbackFor == null) {
+      rollbackFor = new ArrayList<Class<? extends Throwable>>(rollbackThrowables.length);
+    }
+    for (int i = 0; i < rollbackThrowables.length; i++) {
+      rollbackFor.add((Class<? extends Throwable>) rollbackThrowables[i]);
+    }
+    return this;
+  }
+
+  /**
+   * Return the throwable's that should NOT cause a rollback.
+   */
+  public ArrayList<Class<? extends Throwable>> getNoRollbackFor() {
+    return noRollbackFor;
+  }
+
+  /**
+   * Add a Throwable to a list that will NOT cause a rollback. You are able to
+   * call this method multiple times with different throwable's and they will
+   * added to a list.
+   */
+  public TxScope setNoRollbackFor(Class<? extends Throwable> noRollback) {
+    if (noRollbackFor == null) {
+      noRollbackFor = new ArrayList<Class<? extends Throwable>>(2);
+    }
+    this.noRollbackFor.add(noRollback);
+    return this;
+  }
+
+  /**
+   * Set multiple throwable's that will NOT cause a rollback.
+   */
+  @SuppressWarnings("unchecked")
+  public TxScope setNoRollbackFor(Class<?>[] noRollbacks) {
+    if (noRollbackFor == null) {
+      noRollbackFor = new ArrayList<Class<? extends Throwable>>(noRollbacks.length);
+    }
+    for (int i = 0; i < noRollbacks.length; i++) {
+      noRollbackFor.add((Class<? extends Throwable>) noRollbacks[i]);
+    }
+    return this;
+  }
 
 }

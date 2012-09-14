@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.NotEmptyValidatorFactory;
 
-
 /**
  * Validate property as not null and not an empty string.
  * <p>
@@ -16,7 +15,7 @@ import com.avaje.ebean.validation.factory.NotEmptyValidatorFactory;
  * </p>
  */
 @ValidatorMeta(factory = NotEmptyValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotEmpty {
 

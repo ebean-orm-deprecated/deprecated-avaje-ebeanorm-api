@@ -30,45 +30,45 @@ package com.avaje.ebean.config;
  * @author rbygrave
  * 
  * @param <B>
- *            The value object type.
+ *          The value object type.
  * @param <S>
- *            The scalar object type that is used to persist the value object.
+ *          The scalar object type that is used to persist the value object.
  * 
  * @see CompoundType
  * @see CompoundTypeProperty
  */
 public interface ScalarTypeConverter<B, S> {
 
-    /**
-     * Return the value to represent null.
-     * Typically this is actually null but for scala.Option and similar type converters
-     * this actually returns an instance representing "None".
-     */
-    public B getNullValue();
-    
-    /**
-     * Convert the scalar type value into the value object.
-     * <p>
-     * This typically occurs when Ebean reads the value from a resultSet or
-     * other data source.
-     * </p>
-     * 
-     * @param scalarType
-     *            the value from the data source
-     */
-    public B wrapValue(S scalarType);
+  /**
+   * Return the value to represent null. Typically this is actually null but for
+   * scala.Option and similar type converters this actually returns an instance
+   * representing "None".
+   */
+  public B getNullValue();
 
-    /**
-     * Convert the value object into a scalar value that Ebean knows how to
-     * persist.
-     * <p>
-     * This typically occurs when Ebean is persisting the value object to the
-     * data store.
-     * </p>
-     * 
-     * @param beanType
-     *            the value object
-     */
-    public S unwrapValue(B beanType);
+  /**
+   * Convert the scalar type value into the value object.
+   * <p>
+   * This typically occurs when Ebean reads the value from a resultSet or other
+   * data source.
+   * </p>
+   * 
+   * @param scalarType
+   *          the value from the data source
+   */
+  public B wrapValue(S scalarType);
+
+  /**
+   * Convert the value object into a scalar value that Ebean knows how to
+   * persist.
+   * <p>
+   * This typically occurs when Ebean is persisting the value object to the data
+   * store.
+   * </p>
+   * 
+   * @param beanType
+   *          the value object
+   */
+  public S unwrapValue(B beanType);
 
 }

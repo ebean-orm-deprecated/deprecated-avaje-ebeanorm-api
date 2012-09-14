@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
  * <p>
  * It extends the java.util.concurrent.Future.
  * </p>
- *
+ * 
  * <pre class="code">
  *  // create a query
  * String sql = ... ;
@@ -38,10 +38,10 @@ import java.util.concurrent.Future;
  * </pre>
  * 
  * @author rob
- *
+ * 
  */
 public interface SqlFutureList extends Future<List<SqlRow>> {
 
-	public SqlQuery getQuery();
-	
+  public SqlQuery getQuery();
+
 }

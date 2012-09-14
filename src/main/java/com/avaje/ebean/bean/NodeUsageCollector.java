@@ -4,8 +4,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashSet;
 
 /**
- * Collects profile information for a bean (or reference/proxy bean) at a
- * given AutoFetchNode.
+ * Collects profile information for a bean (or reference/proxy bean) at a given
+ * AutoFetchNode.
  * <p>
  * The AutoFetchNode identifies the location of the bean in the object graph.
  * </p>
@@ -16,110 +16,111 @@ import java.util.HashSet;
  */
 public final class NodeUsageCollector {
 
-	/**
-	 * The point in the object graph for a specific query and call stack point.
-	 */
-	private final ObjectGraphNode node;
-	
-	/**
-	 * Weak to allow garbage collection.
-	 */
-	private final WeakReference<NodeUsageListener> managerRef;
+  /**
+   * The point in the object graph for a specific query and call stack point.
+   */
+  private final ObjectGraphNode node;
 
-	/**
-	 * The properties used at this profile point.
-	 */
-	private final HashSet<String> used = new HashSet<String>();
+  /**
+   * Weak to allow garbage collection.
+   */
+  private final WeakReference<NodeUsageListener> managerRef;
 
-	/**
-	 * set to true if the bean is modified (setter called)
-	 */
-	private boolean modified;
+  /**
+   * The properties used at this profile point.
+   */
+  private final HashSet<String> used = new HashSet<String>();
 
-	/**
-	 * The property that cause a reference to lazy load.
-	 */
-	private String loadProperty;
+  /**
+   * set to true if the bean is modified (setter called)
+   */
+  private boolean modified;
 
-	public NodeUsageCollector(ObjectGraphNode node, WeakReference<NodeUsageListener> managerRef) {
-		this.node = node;
-		// weak to allow garbage collection.
-		this.managerRef = managerRef;
-	}
+  /**
+   * The property that cause a reference to lazy load.
+   */
+  private String loadProperty;
 
-	/**
-	 * The bean has been modified by a setter method.
-	 */
-	public void setModified() {
-		modified = true;
-	}
+  public NodeUsageCollector(ObjectGraphNode node, WeakReference<NodeUsageListener> managerRef) {
+    this.node = node;
+    // weak to allow garbage collection.
+    this.managerRef = managerRef;
+  }
 
-	/**
-	 * Add the name of a property that has been used.
-	 */
-	public void addUsed(String property) {
-		used.add(property);
-	}
+  /**
+   * The bean has been modified by a setter method.
+   */
+  public void setModified() {
+    modified = true;
+  }
 
-	/**
-	 * The property that invoked a lazy load.
-	 */
-	public void setLoadProperty(String loadProperty) {
-		this.loadProperty = loadProperty;
-	}
+  /**
+   * Add the name of a property that has been used.
+   */
+  public void addUsed(String property) {
+    used.add(property);
+  }
 
-	/**
-	 * Publish the usage info to the manager.
-	 */
-	private void publishUsageInfo() {
-		NodeUsageListener manager = managerRef.get();
-		if (manager != null) {
-			manager.collectNodeUsage(this);
-		}
-	}
+  /**
+   * The property that invoked a lazy load.
+   */
+  public void setLoadProperty(String loadProperty) {
+    this.loadProperty = loadProperty;
+  }
 
-	/**
-	 * publish the collected usage information when garbage collection occurs.
-	 */
-	@Override
-	protected void finalize() throws Throwable {
-		publishUsageInfo();
-		super.finalize();
-	}
+  /**
+   * Publish the usage info to the manager.
+   */
+  private void publishUsageInfo() {
+    NodeUsageListener manager = managerRef.get();
+    if (manager != null) {
+      manager.collectNodeUsage(this);
+    }
+  }
 
-	/**
-	 * Return the associated node which identifies the location in the object graph of the bean/reference.
-	 */
-	public ObjectGraphNode getNode() {
-		return node;
-	}
-	
-	/**
-	 * Return true if no properties where used.
-	 */
-	public boolean isEmpty() {
-		return used.isEmpty();
-	}
+  /**
+   * publish the collected usage information when garbage collection occurs.
+   */
+  @Override
+  protected void finalize() throws Throwable {
+    publishUsageInfo();
+    super.finalize();
+  }
 
-	/**
-	 * Return the set of used properties.
-	 */
-	public HashSet<String> getUsed() {
-		return used;
-	}
+  /**
+   * Return the associated node which identifies the location in the object
+   * graph of the bean/reference.
+   */
+  public ObjectGraphNode getNode() {
+    return node;
+  }
 
-	/**
-	 * Return true if the bean was modified by a setter.
-	 */
-	public boolean isModified() {
-		return modified;
-	}
+  /**
+   * Return true if no properties where used.
+   */
+  public boolean isEmpty() {
+    return used.isEmpty();
+  }
 
-	public String getLoadProperty() {
-		return loadProperty;
-	}
+  /**
+   * Return the set of used properties.
+   */
+  public HashSet<String> getUsed() {
+    return used;
+  }
 
-	public String toString() {
-		return node + " read:" + used + " modified:" + modified;
-	}
+  /**
+   * Return true if the bean was modified by a setter.
+   */
+  public boolean isModified() {
+    return modified;
+  }
+
+  public String getLoadProperty() {
+    return loadProperty;
+  }
+
+  public String toString() {
+    return node + " read:" + used + " modified:" + modified;
+  }
 }

@@ -17,84 +17,84 @@ import java.sql.Connection;
  */
 public enum TxIsolation {
 
-	/**
-	 * Read Committed Isolation level. This is typically the default for most
-	 * configurations.
-	 */
-	READ_COMMITED(Connection.TRANSACTION_READ_COMMITTED),
+  /**
+   * Read Committed Isolation level. This is typically the default for most
+   * configurations.
+   */
+  READ_COMMITED(Connection.TRANSACTION_READ_COMMITTED),
 
-	/**
-	 * Read uncommitted Isolation level.
-	 */
-	READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED),
+  /**
+   * Read uncommitted Isolation level.
+   */
+  READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED),
 
-	/**
-	 * Repeatable Read Isolation level.
-	 */
-	REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ),
+  /**
+   * Repeatable Read Isolation level.
+   */
+  REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ),
 
-	/**
-	 * Serializable Isolation level.
-	 */
-	SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE),
+  /**
+   * Serializable Isolation level.
+   */
+  SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE),
 
-	/**
-	 * No Isolation level.
-	 */
-	NONE(Connection.TRANSACTION_NONE),
+  /**
+   * No Isolation level.
+   */
+  NONE(Connection.TRANSACTION_NONE),
 
-	/**
-	 * The default isolation level. This typically means the default that the
-	 * DataSource is using or configured to use.
-	 */
-	DEFAULT(-1);
+  /**
+   * The default isolation level. This typically means the default that the
+   * DataSource is using or configured to use.
+   */
+  DEFAULT(-1);
 
-	final int level;
+  final int level;
 
-	private TxIsolation(int level) {
-		this.level = level;
-	}
+  private TxIsolation(int level) {
+    this.level = level;
+  }
 
-	/**
-	 * Return the level as per java.sql.Connection.
-	 * <p>
-	 * Note that -1 denotes the default isolation level.
-	 * </p>
-	 */
-	public int getLevel() {
-		return level;
-	}
+  /**
+   * Return the level as per java.sql.Connection.
+   * <p>
+   * Note that -1 denotes the default isolation level.
+   * </p>
+   */
+  public int getLevel() {
+    return level;
+  }
 
-	/**
-	 * Return the TxIsolation given the java.sql.Connection isolation level.
-	 * <p>
-	 * Note that -1 denotes the default isolation level.
-	 * </p>
-	 */
-	public static TxIsolation fromLevel(int connectionIsolationLevel) {
+  /**
+   * Return the TxIsolation given the java.sql.Connection isolation level.
+   * <p>
+   * Note that -1 denotes the default isolation level.
+   * </p>
+   */
+  public static TxIsolation fromLevel(int connectionIsolationLevel) {
 
-		switch (connectionIsolationLevel) {
-		case Connection.TRANSACTION_READ_UNCOMMITTED:
-			return TxIsolation.READ_UNCOMMITTED;
+    switch (connectionIsolationLevel) {
+    case Connection.TRANSACTION_READ_UNCOMMITTED:
+      return TxIsolation.READ_UNCOMMITTED;
 
-		case Connection.TRANSACTION_READ_COMMITTED:
-			return TxIsolation.READ_COMMITED;
+    case Connection.TRANSACTION_READ_COMMITTED:
+      return TxIsolation.READ_COMMITED;
 
-		case Connection.TRANSACTION_REPEATABLE_READ:
-			return TxIsolation.REPEATABLE_READ;
+    case Connection.TRANSACTION_REPEATABLE_READ:
+      return TxIsolation.REPEATABLE_READ;
 
-		case Connection.TRANSACTION_SERIALIZABLE:
-			return TxIsolation.SERIALIZABLE;
+    case Connection.TRANSACTION_SERIALIZABLE:
+      return TxIsolation.SERIALIZABLE;
 
-		case Connection.TRANSACTION_NONE:
-			return TxIsolation.NONE;
+    case Connection.TRANSACTION_NONE:
+      return TxIsolation.NONE;
 
-		case -1:
-			return TxIsolation.DEFAULT;
+    case -1:
+      return TxIsolation.DEFAULT;
 
-		default:
-			throw new RuntimeException("Unknown isolation level " + connectionIsolationLevel);
-		}
+    default:
+      throw new RuntimeException("Unknown isolation level " + connectionIsolationLevel);
+    }
 
-	}
+  }
 }

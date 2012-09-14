@@ -17,9 +17,9 @@ import com.avaje.ebean.TxType;
  * <p>
  * Note: Currently there are 3 known annotations that perform this role.
  * <ul>
- * <li> EJB's javax.ejb.TransactionAttribute</li>
- * <li> Spring's org.springframework.transaction.annotation.Transactional</li>
- * <li> and this one, Ebean's own com.avaje.ebean.annotation.Transactional</li>
+ * <li>EJB's javax.ejb.TransactionAttribute</li>
+ * <li>Spring's org.springframework.transaction.annotation.Transactional</li>
+ * <li>and this one, Ebean's own com.avaje.ebean.annotation.Transactional</li>
  * </ul>
  * Spring created their one because the EJB annotation does not support features
  * such as isolation level and specifying rollbackOn, noRollbackOn exceptions.
@@ -68,51 +68,51 @@ import com.avaje.ebean.TxType;
  *  ## Log transaction begins and ends etc
  *  ## (0=NoLogging 1=minimal ... 9=logAll)
  *  ebean.debug.transaction=3
- *  
+ * 
  * </pre>
  */
-@Target( { ElementType.METHOD, ElementType.TYPE })
+@Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Transactional {
 
-	/**
-	 * The type of transaction scoping. Defaults to REQUIRED.
-	 */
-	TxType type() default TxType.REQUIRED;
+  /**
+   * The type of transaction scoping. Defaults to REQUIRED.
+   */
+  TxType type() default TxType.REQUIRED;
 
-	/**
-	 * The transaction isolation level this transaction should have.
-	 * <p>
-	 * This will only be used if this scope creates the transaction. If the
-	 * transaction has already started then this will currently be ignored (you
-	 * could argue that it should throw an exception).
-	 * </p>
-	 */
-	TxIsolation isolation() default TxIsolation.DEFAULT;
+  /**
+   * The transaction isolation level this transaction should have.
+   * <p>
+   * This will only be used if this scope creates the transaction. If the
+   * transaction has already started then this will currently be ignored (you
+   * could argue that it should throw an exception).
+   * </p>
+   */
+  TxIsolation isolation() default TxIsolation.DEFAULT;
 
-	/**
-	 * Set this to true if the transaction should be only contain queries.
-	 */
-	boolean readOnly() default false;
+  /**
+   * Set this to true if the transaction should be only contain queries.
+   */
+  boolean readOnly() default false;
 
-	/**
-	 * The name of the server that you want the transaction to be created from.
-	 * <p>
-	 * If left blank the 'default' server is used.
-	 * </p>
-	 */
-	String serverName() default "";
-	
-	// int timeout() default 0;
+  /**
+   * The name of the server that you want the transaction to be created from.
+   * <p>
+   * If left blank the 'default' server is used.
+   * </p>
+   */
+  String serverName() default "";
 
-	/**
-	 * The throwable's that will explicitly cause a rollback to occur.
-	 */
-	Class<? extends Throwable>[] rollbackFor() default {};
+  // int timeout() default 0;
 
-	/**
-	 * The throwable's that will explicitly NOT cause a rollback to occur.
-	 */
-	Class<? extends Throwable>[] noRollbackFor() default {};
+  /**
+   * The throwable's that will explicitly cause a rollback to occur.
+   */
+  Class<? extends Throwable>[] rollbackFor() default {};
+
+  /**
+   * The throwable's that will explicitly NOT cause a rollback to occur.
+   */
+  Class<? extends Throwable>[] noRollbackFor() default {};
 
 };

@@ -7,15 +7,14 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.AssertTrueValidatorFactory;
 
-
 /**
  * Validation that can be placed on a method to assert it is true.
  * <p>
  * The method needs to follow the bean specification and start with "is".
  * </p>
  */
-@ValidatorMeta(factory=AssertTrueValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD})
+@ValidatorMeta(factory = AssertTrueValidatorFactory.class)
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AssertFalse {
 

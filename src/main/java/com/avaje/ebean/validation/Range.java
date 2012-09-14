@@ -26,7 +26,6 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.RangeValidatorFactory;
 
-
 /**
  * Validate the numeric range of a property.
  * <p>
@@ -35,25 +34,25 @@ import com.avaje.ebean.validation.factory.RangeValidatorFactory;
  * </p>
  */
 @ValidatorMeta(factory = RangeValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Range {
 
-	/**
-	 * The minimum value. Defaults to Long.MIN_VALUE.
-	 * <p>
-	 * If left at Long.MIN_VALUE then this really becomes a Max only validation
-	 * test.
-	 * </p>
-	 */
-	long min() default Long.MIN_VALUE;
+  /**
+   * The minimum value. Defaults to Long.MIN_VALUE.
+   * <p>
+   * If left at Long.MIN_VALUE then this really becomes a Max only validation
+   * test.
+   * </p>
+   */
+  long min() default Long.MIN_VALUE;
 
-	/**
-	 * The maximum value. Defaults to Long.MAX_VALUE.
-	 * <p>
-	 * If left at Long.MAX_VALUE then this really becomes a Min only validation
-	 * test.
-	 * </p>
-	 */
-	long max() default Long.MAX_VALUE;
+  /**
+   * The maximum value. Defaults to Long.MAX_VALUE.
+   * <p>
+   * If left at Long.MAX_VALUE then this really becomes a Min only validation
+   * test.
+   * </p>
+   */
+  long max() default Long.MAX_VALUE;
 }

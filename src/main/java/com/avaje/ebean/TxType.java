@@ -13,38 +13,38 @@ package com.avaje.ebean;
  */
 public enum TxType {
 
-	/**
-	 * Uses an existing transaction and if none exists will starts a new
-	 * Transaction. This is the default.
-	 */
-	REQUIRED,
+  /**
+   * Uses an existing transaction and if none exists will starts a new
+   * Transaction. This is the default.
+   */
+  REQUIRED,
 
-	/**
-	 * A transaction MUST already have been started. Throws
-	 * TransactionRequiredException.
-	 */
-	MANDATORY,
+  /**
+   * A transaction MUST already have been started. Throws
+   * TransactionRequiredException.
+   */
+  MANDATORY,
 
-	/**
-	 * Uses the existing transaction if one exists, otherwise the method does
-	 * not run with a transaction. Used this with caution.
-	 */
-	SUPPORTS,
+  /**
+   * Uses the existing transaction if one exists, otherwise the method does not
+   * run with a transaction. Used this with caution.
+   */
+  SUPPORTS,
 
-	/**
-	 * Always start a new transaction. Suspend an existing once if required.
-	 */
-	REQUIRES_NEW,
+  /**
+   * Always start a new transaction. Suspend an existing once if required.
+   */
+  REQUIRES_NEW,
 
-	/**
-	 * Suspends an existing transaction if required. Method runs without a
-	 * transaction.
-	 */
-	NOT_SUPPORTED,
+  /**
+   * Suspends an existing transaction if required. Method runs without a
+   * transaction.
+   */
+  NOT_SUPPORTED,
 
-	/**
-	 * If there is an existing transaction throws an Exception. Method runs
-	 * without a transaction.
-	 */
-	NEVER;
+  /**
+   * If there is an existing transaction throws an Exception. Method runs
+   * without a transaction.
+   */
+  NEVER;
 }

@@ -14,26 +14,26 @@ package com.avaje.ebean.text.json;
  */
 public interface JsonElement {
 
-    /**
-     * Return true if this is a JSON primitive type (null, boolean, number or string).
-     */
-    public boolean isPrimitive();
+  /**
+   * Return true if this is a JSON primitive type (null, boolean, number or
+   * string).
+   */
+  public boolean isPrimitive();
 
-    /**
-     * Return the string value of this primitive JSON element.
-     * <p>
-     * This can not be used for JsonElementObject or JsonElementArray.
-     * </p>
-     */
-    public String toPrimitiveString();
-    
-    public Object eval(String exp);
+  /**
+   * Return the string value of this primitive JSON element.
+   * <p>
+   * This can not be used for JsonElementObject or JsonElementArray.
+   * </p>
+   */
+  public String toPrimitiveString();
 
-    public int evalInt(String exp);
+  public Object eval(String exp);
 
-    public String evalString(String exp);
+  public int evalInt(String exp);
 
-    public boolean evalBoolean(String exp);
+  public String evalString(String exp);
 
+  public boolean evalBoolean(String exp);
 
 }

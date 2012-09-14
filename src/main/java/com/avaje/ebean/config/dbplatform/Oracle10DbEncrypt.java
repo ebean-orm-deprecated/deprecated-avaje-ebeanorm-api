@@ -2,7 +2,6 @@ package com.avaje.ebean.config.dbplatform;
 
 import com.avaje.ebean.config.GlobalProperties;
 
-
 /**
  * Oracle encryption support.
  * 
@@ -48,61 +47,61 @@ import com.avaje.ebean.config.GlobalProperties;
  */
 public class Oracle10DbEncrypt extends AbstractDbEncrypt {
 
-    /**
-     * Constructs the Oracle10DbEncrypt.
-     */
-    public Oracle10DbEncrypt() {
-        
-        String encryptfunction = GlobalProperties.get("ebean.oracle.encryptfunction", "eb_encrypt");
-        String decryptfunction = GlobalProperties.get("ebean.oracle.decryptfunction", "eb_decrypt");
-        
-        this.varcharEncryptFunction = new OraVarcharFunction(encryptfunction, decryptfunction);
-        this.dateEncryptFunction = new OraDateFunction(encryptfunction, decryptfunction);
+  /**
+   * Constructs the Oracle10DbEncrypt.
+   */
+  public Oracle10DbEncrypt() {
+
+    String encryptfunction = GlobalProperties.get("ebean.oracle.encryptfunction", "eb_encrypt");
+    String decryptfunction = GlobalProperties.get("ebean.oracle.decryptfunction", "eb_decrypt");
+
+    this.varcharEncryptFunction = new OraVarcharFunction(encryptfunction, decryptfunction);
+    this.dateEncryptFunction = new OraDateFunction(encryptfunction, decryptfunction);
+  }
+
+  /**
+   * VARCHAR encryption/decryption function.
+   */
+  private static class OraVarcharFunction implements DbEncryptFunction {
+
+    private final String encryptfunction;
+    private final String decryptfunction;
+
+    public OraVarcharFunction(String encryptfunction, String decryptfunction) {
+      this.encryptfunction = encryptfunction;
+      this.decryptfunction = decryptfunction;
     }
 
-    /**
-     * VARCHAR encryption/decryption function.
-     */
-    private static class OraVarcharFunction implements DbEncryptFunction {
-
-        private final String encryptfunction;
-        private final String decryptfunction;
-        
-        public OraVarcharFunction(String encryptfunction, String decryptfunction) {
-            this.encryptfunction = encryptfunction;
-            this.decryptfunction = decryptfunction;
-        }
-
-        public String getDecryptSql(String columnWithTableAlias) {
-            return decryptfunction+"(" + columnWithTableAlias + ",?)";
-        }
-
-        public String getEncryptBindSql() {
-            return encryptfunction+"(?,?)";
-        }
-        
+    public String getDecryptSql(String columnWithTableAlias) {
+      return decryptfunction + "(" + columnWithTableAlias + ",?)";
     }
 
-    /**
-     * DATE encryption/decryption function.
-     */
-    private static class OraDateFunction implements DbEncryptFunction {
-        
-        private final String encryptfunction;
-        private final String decryptfunction;
-        
-        public OraDateFunction(String encryptfunction, String decryptfunction) {
-            this.encryptfunction = encryptfunction;
-            this.decryptfunction = decryptfunction;
-        }
-        
-        public String getDecryptSql(String columnWithTableAlias) {
-            return "to_date("+decryptfunction+"(" + columnWithTableAlias + ",?),'YYYYMMDD')";
-        }
-
-        public String getEncryptBindSql() {
-            return encryptfunction+"(to_char(?,'YYYYMMDD'),?)";
-        }
-        
+    public String getEncryptBindSql() {
+      return encryptfunction + "(?,?)";
     }
+
+  }
+
+  /**
+   * DATE encryption/decryption function.
+   */
+  private static class OraDateFunction implements DbEncryptFunction {
+
+    private final String encryptfunction;
+    private final String decryptfunction;
+
+    public OraDateFunction(String encryptfunction, String decryptfunction) {
+      this.encryptfunction = encryptfunction;
+      this.decryptfunction = decryptfunction;
+    }
+
+    public String getDecryptSql(String columnWithTableAlias) {
+      return "to_date(" + decryptfunction + "(" + columnWithTableAlias + ",?),'YYYYMMDD')";
+    }
+
+    public String getEncryptBindSql() {
+      return encryptfunction + "(to_char(?,'YYYYMMDD'),?)";
+    }
+
+  }
 }

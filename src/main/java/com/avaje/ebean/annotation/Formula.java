@@ -28,7 +28,7 @@ import com.avaje.ebean.Query;
  * <pre class="code">
  * // On the Order &quot;master&quot; bean
  * // ... a formula using the Order details
- * // ... sum(order_qty*unit_price) 
+ * // ... sum(order_qty*unit_price)
  * &#064;Transient
  * &#064;Formula(select = &quot;_b${ta}.total_amount&quot;, join = &quot;join (select order_id, sum(order_qty*unit_price) as total_amount from o_order_detail group by order_id) as _b${ta} on _b${ta}.order_id = ${ta}.id&quot;)
  * Double totalAmount;
@@ -40,64 +40,64 @@ import com.avaje.ebean.Query;
  * </p>
  * 
  * <pre class="code">
- *  // find by Id
+ * // find by Id
  * Order o1 = Ebean.find(Order.class)
- *         .select(&quot;id, totalAmount&quot;)
- *         .setId(1).findUnique();
+ *     .select(&quot;id, totalAmount&quot;)
+ *     .setId(1).findUnique();
  * 
- *  // find list ... using totalAmount in the where clause
+ * // find list ... using totalAmount in the where clause
  * List&lt;Order&gt; list = Ebean.find(Order.class)
- *      .select(&quot;id, totalAmount&quot;)
- *      .where()
- *        .eq(&quot;status&quot;,Order.Status.NEW)
- *        .gt(&quot;totalAmount&quot;, 10)
- * 		.findList();
+ *     .select(&quot;id, totalAmount&quot;)
+ *     .where()
+ *     .eq(&quot;status&quot;, Order.Status.NEW)
+ *     .gt(&quot;totalAmount&quot;, 10)
+ *     .findList();
  * 
- *  // as a join from customer
+ * // as a join from customer
  * List&lt;Customer&gt; l0 = Ebean.find(Customer.class)
- *      .select(&quot;id, name&quot;)
- *      .join(&quot;orders&quot;, &quot;status, totalAmount&quot;)
- *      .where()
- *        .gt(&quot;id&quot;, 0)
- *        .gt(&quot;orders.totalAmount&quot;, 10)
- *      .findList();
+ *     .select(&quot;id, name&quot;)
+ *     .join(&quot;orders&quot;, &quot;status, totalAmount&quot;)
+ *     .where()
+ *     .gt(&quot;id&quot;, 0)
+ *     .gt(&quot;orders.totalAmount&quot;, 10)
+ *     .findList();
  * 
  * </pre>
  */
-@Target( { ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Formula {
 
-	/**
-	 * The SQL to be used in the SELECT part of the SQL to populate a property.
-	 */
-	String select();
+  /**
+   * The SQL to be used in the SELECT part of the SQL to populate a property.
+   */
+  String select();
 
-	/**
-	 * OPTIONAL - the SQL to be used in the JOIN part of the SQL to support the
-	 * formula.
-	 * <p>
-	 * This is commonly used to join a 'dynamic view' to support aggregation
-	 * such as count, sum etc.
-	 * </p>
-	 * <p>
-	 * The join string should start with either "left outer join" or "join".
-	 * </p>
-	 * 
-	 * <p>
-	 * You will almost certainly use the "${ta}" as a place holder for the table
-	 * alias of the table you are joining back to (the "base table" of the
-	 * entity bean).
-	 * </p>
-	 * <p>
-	 * The example below is used to support a total count of topics created by a
-	 * user.
-	 * </p>
-	 * 
-	 * <pre class="code">
-	 * join (select user_id, count(*) as topic_count from f_topic group by user_id) as _tc on _tc.user_id = ${ta}.id
-	 * </pre>
-	 */
-	String join() default "";
+  /**
+   * OPTIONAL - the SQL to be used in the JOIN part of the SQL to support the
+   * formula.
+   * <p>
+   * This is commonly used to join a 'dynamic view' to support aggregation such
+   * as count, sum etc.
+   * </p>
+   * <p>
+   * The join string should start with either "left outer join" or "join".
+   * </p>
+   * 
+   * <p>
+   * You will almost certainly use the "${ta}" as a place holder for the table
+   * alias of the table you are joining back to (the "base table" of the entity
+   * bean).
+   * </p>
+   * <p>
+   * The example below is used to support a total count of topics created by a
+   * user.
+   * </p>
+   * 
+   * <pre class="code">
+   * join (select user_id, count(*) as topic_count from f_topic group by user_id) as _tc on _tc.user_id = ${ta}.id
+   * </pre>
+   */
+  String join() default "";
 
 };

@@ -7,6 +7,7 @@ package com.avaje.ebean;
  * want to process the beans one at a time rather than whole all of the beans in
  * memory at once.
  * </p>
+ * 
  * <pre class="code">
  * QueryListener&lt;Order&gt; listener = ...;
  *    
@@ -21,17 +22,17 @@ package com.avaje.ebean;
  * </pre>
  * 
  * @param <T>
- *            the type of entity bean
+ *          the type of entity bean
  */
 public interface QueryListener<T> {
 
-	/**
-	 * Process the bean that has just been read.
-	 * <p>
-	 * This bean will not be added to the List Set or Map and nor will it be put
-	 * into the PersistenceContext. This is what makes this a good way to
-	 * process a large result set (which could normally use a lot of memory).
-	 * </p>
-	 */
-	public void process(T bean);
+  /**
+   * Process the bean that has just been read.
+   * <p>
+   * This bean will not be added to the List Set or Map and nor will it be put
+   * into the PersistenceContext. This is what makes this a good way to process
+   * a large result set (which could normally use a lot of memory).
+   * </p>
+   */
+  public void process(T bean);
 }

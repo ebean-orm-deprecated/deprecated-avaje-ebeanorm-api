@@ -13,26 +13,26 @@ import com.avaje.ebean.config.ServerConfig;
  * </p>
  */
 public interface BootupEbeanManager {
-	
-	/**
-	 * Create the EbeanServer for a given configuration.
-	 * 
-	 * @param configuration
-	 *            The configuration information for this server.
-	 */
-	public EbeanServer createServer(ServerConfig configuration);
 
-	/**
-	 * Create an EbeanServer just using the name.
-	 * <p>
-	 * In this case the dataSource parameters etc will be defined on the global
-	 * avaje.properties file.
-	 * </p>
-	 */
-	public EbeanServer createServer(String name);
+  /**
+   * Create the EbeanServer for a given configuration.
+   * 
+   * @param configuration
+   *          The configuration information for this server.
+   */
+  public EbeanServer createServer(ServerConfig configuration);
 
-	/**
-	 * Shutdown any Ebean wide resources such as clustering.
-	 */
-	public void shutdown();
+  /**
+   * Create an EbeanServer just using the name.
+   * <p>
+   * In this case the dataSource parameters etc will be defined on the global
+   * avaje.properties file.
+   * </p>
+   */
+  public EbeanServer createServer(String name);
+
+  /**
+   * Shutdown any Ebean wide resources such as clustering.
+   */
+  public void shutdown();
 }

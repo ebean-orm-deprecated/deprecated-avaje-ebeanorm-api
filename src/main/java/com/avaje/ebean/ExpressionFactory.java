@@ -12,7 +12,8 @@ import java.util.Map;
  * </p>
  * <p>
  * You will often not use this class directly but instead just add expressions
- * via the methods on ExpressionList such as {@link ExpressionList#gt(String, Object)}.
+ * via the methods on ExpressionList such as
+ * {@link ExpressionList#gt(String, Object)}.
  * </p>
  * <p>
  * The ExpressionList is returned from {@link Query#where()}.
@@ -35,221 +36,222 @@ import java.util.Map;
  */
 public interface ExpressionFactory {
 
-    /**
-     * Return the language for this expression factory.
-     */
-    public String getLang();
-    
-	/**
-	 * Equal To - property equal to the given value.
-	 */
-	public Expression eq(String propertyName, Object value);
+  /**
+   * Return the language for this expression factory.
+   */
+  public String getLang();
 
-	/**
-	 * Not Equal To - property not equal to the given value.
-	 */
-	public Expression ne(String propertyName, Object value);
+  /**
+   * Equal To - property equal to the given value.
+   */
+  public Expression eq(String propertyName, Object value);
 
-	/**
-	 * Case Insensitive Equal To - property equal to the given value (typically
-	 * using a lower() function to make it case insensitive).
-	 */
-	public Expression ieq(String propertyName, String value);
+  /**
+   * Not Equal To - property not equal to the given value.
+   */
+  public Expression ne(String propertyName, Object value);
 
-	/**
-	 * Between - property between the two given values.
-	 */
-	public Expression between(String propertyName, Object value1, Object value2);
-	
-    /**
-     * Between - value between two given properties.
-     */
-    public Expression betweenProperties(String lowProperty, String highProperty, Object value);
-    
-	/**
-	 * Greater Than - property greater than the given value.
-	 */
-	public Expression gt(String propertyName, Object value);
-	
-	/**
-	 * Greater Than or Equal to - property greater than or equal to the given
-	 * value.
-	 */
-	public Expression ge(String propertyName, Object value);
+  /**
+   * Case Insensitive Equal To - property equal to the given value (typically
+   * using a lower() function to make it case insensitive).
+   */
+  public Expression ieq(String propertyName, String value);
 
-	/**
-	 * Less Than - property less than the given value.
-	 */
-	public Expression lt(String propertyName, Object value);
+  /**
+   * Between - property between the two given values.
+   */
+  public Expression between(String propertyName, Object value1, Object value2);
 
-	/**
-	 * Less Than or Equal to - property less than or equal to the given value.
-	 */
-	public Expression le(String propertyName, Object value);
+  /**
+   * Between - value between two given properties.
+   */
+  public Expression betweenProperties(String lowProperty, String highProperty, Object value);
 
-	/**
-	 * Is Null - property is null.
-	 */
-	public Expression isNull(String propertyName);
+  /**
+   * Greater Than - property greater than the given value.
+   */
+  public Expression gt(String propertyName, Object value);
 
-	/**
-	 * Is Not Null - property is not null.
-	 */
-	public Expression isNotNull(String propertyName);
+  /**
+   * Greater Than or Equal to - property greater than or equal to the given
+   * value.
+   */
+  public Expression ge(String propertyName, Object value);
 
-	/**
-	 * Case insensitive {@link #exampleLike(Object)}
-	 */
-	public ExampleExpression iexampleLike(Object example);
-	
-	/**
-	 * Create the query by Example expression which is case sensitive and using LikeType.RAW (you need to add you own wildcards % and _).
-	 */
-	public ExampleExpression exampleLike(Object example);
+  /**
+   * Less Than - property less than the given value.
+   */
+  public Expression lt(String propertyName, Object value);
 
-	/**
-	 * Create the query by Example expression specifying more options.
-	 */
-	public ExampleExpression exampleLike(Object example, boolean caseInsensitive, LikeType likeType);
-	
-	/**
-	 * Like - property like value where the value contains the SQL wild card
-	 * characters % (percentage) and _ (underscore).
-	 */
-	public Expression like(String propertyName, String value);
+  /**
+   * Less Than or Equal to - property less than or equal to the given value.
+   */
+  public Expression le(String propertyName, Object value);
 
-	/**
-	 * Case insensitive Like - property like value where the value contains the
-	 * SQL wild card characters % (percentage) and _ (underscore). Typically
-	 * uses a lower() function to make the expression case insensitive.
-	 */
-	public Expression ilike(String propertyName, String value);
+  /**
+   * Is Null - property is null.
+   */
+  public Expression isNull(String propertyName);
 
-	/**
-	 * Starts With - property like value%.
-	 */
-	public Expression startsWith(String propertyName, String value);
+  /**
+   * Is Not Null - property is not null.
+   */
+  public Expression isNotNull(String propertyName);
 
-	/**
-	 * Case insensitive Starts With - property like value%. Typically uses a
-	 * lower() function to make the expression case insensitive.
-	 */
-	public Expression istartsWith(String propertyName, String value);
+  /**
+   * Case insensitive {@link #exampleLike(Object)}
+   */
+  public ExampleExpression iexampleLike(Object example);
 
-	/**
-	 * Ends With - property like %value.
-	 */
-	public Expression endsWith(String propertyName, String value);
+  /**
+   * Create the query by Example expression which is case sensitive and using
+   * LikeType.RAW (you need to add you own wildcards % and _).
+   */
+  public ExampleExpression exampleLike(Object example);
 
-	/**
-	 * Case insensitive Ends With - property like %value. Typically uses a
-	 * lower() function to make the expression case insensitive.
-	 */
-	public Expression iendsWith(String propertyName, String value);
+  /**
+   * Create the query by Example expression specifying more options.
+   */
+  public ExampleExpression exampleLike(Object example, boolean caseInsensitive, LikeType likeType);
 
-	/**
-	 * Contains - property like %value%.
-	 */
-	public Expression contains(String propertyName, String value);
+  /**
+   * Like - property like value where the value contains the SQL wild card
+   * characters % (percentage) and _ (underscore).
+   */
+  public Expression like(String propertyName, String value);
 
-	/**
-	 * Case insensitive Contains - property like %value%. Typically uses a
-	 * lower() function to make the expression case insensitive.
-	 */
-	public Expression icontains(String propertyName, String value);
+  /**
+   * Case insensitive Like - property like value where the value contains the
+   * SQL wild card characters % (percentage) and _ (underscore). Typically uses
+   * a lower() function to make the expression case insensitive.
+   */
+  public Expression ilike(String propertyName, String value);
 
-	/**
-	 * In - property has a value in the array of values.
-	 */
-	public Expression in(String propertyName, Object[] values);
+  /**
+   * Starts With - property like value%.
+   */
+  public Expression startsWith(String propertyName, String value);
 
-	/**
-	 * In - using a subQuery.
-	 */
-	public Expression in(String propertyName, Query<?> subQuery);
-	
-	/**
-	 * In - property has a value in the collection of values.
-	 */
-	public Expression in(String propertyName, Collection<?> values);
+  /**
+   * Case insensitive Starts With - property like value%. Typically uses a
+   * lower() function to make the expression case insensitive.
+   */
+  public Expression istartsWith(String propertyName, String value);
 
-	/**
-	 * Id Equal to - ID property is equal to the value.
-	 */
-	public Expression idEq(Object value);
+  /**
+   * Ends With - property like %value.
+   */
+  public Expression endsWith(String propertyName, String value);
 
-	/**
-	 * Id IN a list of Id values.
-	 */
-	public Expression idIn(List<?> idList);
+  /**
+   * Case insensitive Ends With - property like %value. Typically uses a lower()
+   * function to make the expression case insensitive.
+   */
+  public Expression iendsWith(String propertyName, String value);
 
-	/**
-	 * All Equal - Map containing property names and their values.
-	 * <p>
-	 * Expression where all the property names in the map are equal to the
-	 * corresponding value.
-	 * </p>
-	 * 
-	 * @param propertyMap
-	 *            a map keyed by property names.
-	 */
-	public Expression allEq(Map<String, Object> propertyMap);
+  /**
+   * Contains - property like %value%.
+   */
+  public Expression contains(String propertyName, String value);
 
-	/**
-	 * Add raw expression with a single parameter.
-	 * <p>
-	 * The raw expression should contain a single ? at the location of the
-	 * parameter.
-	 * </p>
-	 */
-	public Expression raw(String raw, Object value);
+  /**
+   * Case insensitive Contains - property like %value%. Typically uses a lower()
+   * function to make the expression case insensitive.
+   */
+  public Expression icontains(String propertyName, String value);
 
-	/**
-	 * Add raw expression with an array of parameters.
-	 * <p>
-	 * The raw expression should contain the same number of ? as there are
-	 * parameters.
-	 * </p>
-	 */
-	public Expression raw(String raw, Object[] values);
+  /**
+   * In - property has a value in the array of values.
+   */
+  public Expression in(String propertyName, Object[] values);
 
-	/**
-	 * Add raw expression with no parameters.
-	 */
-	public Expression raw(String raw);
+  /**
+   * In - using a subQuery.
+   */
+  public Expression in(String propertyName, Query<?> subQuery);
 
-	/**
-	 * And - join two expressions with a logical and.
-	 */
-	public Expression and(Expression expOne, Expression expTwo);
+  /**
+   * In - property has a value in the collection of values.
+   */
+  public Expression in(String propertyName, Collection<?> values);
 
-	/**
-	 * Or - join two expressions with a logical or.
-	 */
-	public Expression or(Expression expOne, Expression expTwo);
-	
-	/**
-	 * Negate the expression (prefix it with NOT).
-	 */
-	public Expression not(Expression exp);
+  /**
+   * Id Equal to - ID property is equal to the value.
+   */
+  public Expression idEq(Object value);
 
-	/**
-	 * Return a list of expressions that will be joined by AND's.
-	 */
-	public <T> Junction<T> conjunction(Query<T> query);
+  /**
+   * Id IN a list of Id values.
+   */
+  public Expression idIn(List<?> idList);
 
-	/**
-	 * Return a list of expressions that will be joined by OR's.
-	 */
-	public <T> Junction<T> disjunction(Query<T> query);
-	
-	   /**
-     * Return a list of expressions that will be joined by AND's.
-     */
-    public <T> Junction<T> conjunction(Query<T> query, ExpressionList<T> parent);
+  /**
+   * All Equal - Map containing property names and their values.
+   * <p>
+   * Expression where all the property names in the map are equal to the
+   * corresponding value.
+   * </p>
+   * 
+   * @param propertyMap
+   *          a map keyed by property names.
+   */
+  public Expression allEq(Map<String, Object> propertyMap);
 
-    /**
-     * Return a list of expressions that will be joined by OR's.
-     */
-    public <T> Junction<T> disjunction(Query<T> query, ExpressionList<T> parent);
+  /**
+   * Add raw expression with a single parameter.
+   * <p>
+   * The raw expression should contain a single ? at the location of the
+   * parameter.
+   * </p>
+   */
+  public Expression raw(String raw, Object value);
+
+  /**
+   * Add raw expression with an array of parameters.
+   * <p>
+   * The raw expression should contain the same number of ? as there are
+   * parameters.
+   * </p>
+   */
+  public Expression raw(String raw, Object[] values);
+
+  /**
+   * Add raw expression with no parameters.
+   */
+  public Expression raw(String raw);
+
+  /**
+   * And - join two expressions with a logical and.
+   */
+  public Expression and(Expression expOne, Expression expTwo);
+
+  /**
+   * Or - join two expressions with a logical or.
+   */
+  public Expression or(Expression expOne, Expression expTwo);
+
+  /**
+   * Negate the expression (prefix it with NOT).
+   */
+  public Expression not(Expression exp);
+
+  /**
+   * Return a list of expressions that will be joined by AND's.
+   */
+  public <T> Junction<T> conjunction(Query<T> query);
+
+  /**
+   * Return a list of expressions that will be joined by OR's.
+   */
+  public <T> Junction<T> disjunction(Query<T> query);
+
+  /**
+   * Return a list of expressions that will be joined by AND's.
+   */
+  public <T> Junction<T> conjunction(Query<T> query, ExpressionList<T> parent);
+
+  /**
+   * Return a list of expressions that will be joined by OR's.
+   */
+  public <T> Junction<T> disjunction(Query<T> query, ExpressionList<T> parent);
 }

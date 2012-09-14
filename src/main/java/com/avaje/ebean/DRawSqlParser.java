@@ -70,7 +70,8 @@ class DRawSqlParser {
 
     preFrom = trimSelectKeyword(preFrom);
 
-    return new Sql(sql.hashCode(), preFrom, preWhere, whereExprAnd, preHaving, havingExprAnd, orderBySql, (distinctPos > -1));
+    return new Sql(sql.hashCode(), preFrom, preWhere, whereExprAnd, preHaving, havingExprAnd,
+        orderBySql, (distinctPos > -1));
   }
 
   /**
@@ -132,8 +133,9 @@ class DRawSqlParser {
       // trim of distinct keyword
       String distinct = preWhereExprSql.substring(0, 9);
       if (!distinct.equalsIgnoreCase("distinct ")) {
-        throw new RuntimeException("Expecting [" + preWhereExprSql + "] to start with \"select distinct\"");
-      }  
+        throw new RuntimeException("Expecting [" + preWhereExprSql
+            + "] to start with \"select distinct\"");
+      }
       preWhereExprSql = preWhereExprSql.substring(9);
     }
 

@@ -11,37 +11,37 @@ import java.lang.annotation.Target;
  * If this is not specified then the system default settings are used.
  * </p>
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheTuning {
 
-	/**
-	 * The maximum size for the cache.
-	 * <p>
-	 * This defaults to 0 which means unlimited.
-	 * </p>
-	 */
-	int maxSize() default 0;
+  /**
+   * The maximum size for the cache.
+   * <p>
+   * This defaults to 0 which means unlimited.
+   * </p>
+   */
+  int maxSize() default 0;
 
-	/**
-	 * The maximum time (in seconds) that a cache entry is allowed to stay in
-	 * the cache when it has not been accessed.
-	 * <p>
-	 * This defaults to 0 which means unlimited.
-	 * </p>
-	 */
-	int maxIdleSecs() default 0;
+  /**
+   * The maximum time (in seconds) that a cache entry is allowed to stay in the
+   * cache when it has not been accessed.
+   * <p>
+   * This defaults to 0 which means unlimited.
+   * </p>
+   */
+  int maxIdleSecs() default 0;
 
-	/**
-	 * The maximum time (in seconds) a cache entry is allowed to stay in the
-	 * cache.
-	 * <p>
-	 * This is not generally required as the cache entries are automatically
-	 * evicted when related data changes are committed.
-	 * </p>
-	 * <p>
-	 * This defaults to 0 which means unlimited.
-	 * </p>
-	 */
-	int maxSecsToLive() default 0;
+  /**
+   * The maximum time (in seconds) a cache entry is allowed to stay in the
+   * cache.
+   * <p>
+   * This is not generally required as the cache entries are automatically
+   * evicted when related data changes are committed.
+   * </p>
+   * <p>
+   * This defaults to 0 which means unlimited.
+   * </p>
+   */
+  int maxSecsToLive() default 0;
 };

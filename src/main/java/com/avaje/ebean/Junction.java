@@ -1,6 +1,5 @@
 package com.avaje.ebean;
 
-
 /**
  * Represents a Conjunction or a Disjunction.
  * <p>
@@ -12,17 +11,17 @@ package com.avaje.ebean;
  * </p>
  * 
  * <pre class="code">
- *  Query q = 
- *    Ebean.find(Person.class)
- *      .where().disjunction()
- *        .like(&quot;name&quot;,&quot;Rob%&quot;)
- *        .eq(&quot;status&quot;,Status.NEW)
- *  
- *      // where() returns us to the top level expression list
- *     .where().gt(&quot;id&quot;, 10);
- *   
- *     // read as... 
- *     // where ( ((name like Rob%) or (status = NEW)) AND (id > 10) )
+ * Query q =
+ *     Ebean.find(Person.class)
+ *         .where().disjunction()
+ *         .like(&quot;name&quot;, &quot;Rob%&quot;)
+ *         .eq(&quot;status&quot;, Status.NEW)
+ * 
+ *         // where() returns us to the top level expression list
+ *         .where().gt(&quot;id&quot;, 10);
+ * 
+ * // read as...
+ * // where ( ((name like Rob%) or (status = NEW)) AND (id &gt; 10) )
  * </pre>
  * 
  * <p>
@@ -30,20 +29,20 @@ package com.avaje.ebean;
  * </p>
  * 
  * <pre class="code">
- *  Query q = 
- *    Ebean.find(Person.class)
- *      .where().disjunction()
- *        .like(&quot;name&quot;,&quot;Rob%&quot;)
- *        .eq(&quot;status&quot;,Status.NEW)
- *        .endJunction()
- *         
- *       // endJunction().. takes us to the 'parent' expression list
- *       // which in this case is the top level (same as where())
- *       
- *      .gt(&quot;id&quot;, 10);
- *      
- *     // read as... 
- *     // where ( ((name like Rob%) or (status = NEW)) AND (id > 10) )
+ * Query q =
+ *     Ebean.find(Person.class)
+ *         .where().disjunction()
+ *         .like(&quot;name&quot;, &quot;Rob%&quot;)
+ *         .eq(&quot;status&quot;, Status.NEW)
+ *         .endJunction()
+ * 
+ *         // endJunction().. takes us to the 'parent' expression list
+ *         // which in this case is the top level (same as where())
+ * 
+ *         .gt(&quot;id&quot;, 10);
+ * 
+ * // read as...
+ * // where ( ((name like Rob%) or (status = NEW)) AND (id &gt; 10) )
  * </pre>
  * 
  * <p>

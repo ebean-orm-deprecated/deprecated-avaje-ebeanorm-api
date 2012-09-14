@@ -86,12 +86,15 @@ import com.avaje.ebean.util.CamelCaseHelper;
  * </p>
  * 
  * <pre class="code">
- * String sql = &quot; select order_id, o.status, c.id, c.name, sum(d.order_qty*d.unit_price) as totalAmount&quot; + &quot; from o_order o&quot;
- *     + &quot; join o_customer c on c.id = o.kcustomer_id &quot; + &quot; join o_order_detail d on d.order_id = o.id &quot; + &quot; group by order_id, o.status &quot;;
+ * String sql = &quot; select order_id, o.status, c.id, c.name, sum(d.order_qty*d.unit_price) as totalAmount&quot;
+ *     + &quot; from o_order o&quot;
+ *     + &quot; join o_customer c on c.id = o.kcustomer_id &quot;
+ *     + &quot; join o_order_detail d on d.order_id = o.id &quot; + &quot; group by order_id, o.status &quot;;
  * 
  * RawSql rawSql = RawSqlBuilder.parse(sql)
  *     // map the sql result columns to bean properties
- *     .columnMapping(&quot;order_id&quot;, &quot;order.id&quot;).columnMapping(&quot;o.status&quot;, &quot;order.status&quot;).columnMapping(&quot;c.id&quot;, &quot;order.customer.id&quot;)
+ *     .columnMapping(&quot;order_id&quot;, &quot;order.id&quot;).columnMapping(&quot;o.status&quot;, &quot;order.status&quot;)
+ *     .columnMapping(&quot;c.id&quot;, &quot;order.customer.id&quot;)
  *     .columnMapping(&quot;c.name&quot;, &quot;order.customer.name&quot;)
  *     // we don't need to map this one due to the sql column alias
  *     // .columnMapping(&quot;sum(d.order_qty*d.unit_price)&quot;, &quot;totalAmount&quot;)
@@ -114,13 +117,16 @@ import com.avaje.ebean.util.CamelCaseHelper;
  * </p>
  * 
  * <pre class="code">
- * String sql = &quot; select order_id, 'ignoreMe', sum(d.order_qty*d.unit_price) as totalAmount &quot; + &quot; from o_order_detail d&quot;
+ * String sql = &quot; select order_id, 'ignoreMe', sum(d.order_qty*d.unit_price) as totalAmount &quot;
+ *     + &quot; from o_order_detail d&quot;
  *     + &quot; group by order_id &quot;;
  * 
- * RawSql rawSql = RawSqlBuilder.parse(sql).columnMapping(&quot;order_id&quot;, &quot;order.id&quot;).columnMappingIgnore(&quot;'ignoreMe'&quot;).create();
+ * RawSql rawSql = RawSqlBuilder.parse(sql).columnMapping(&quot;order_id&quot;, &quot;order.id&quot;)
+ *     .columnMappingIgnore(&quot;'ignoreMe'&quot;).create();
  * 
  * Query&lt;OrderAggregate&gt; query = Ebean.find(OrderAggregate.class);
- * query.setRawSql(rawSql).fetch(&quot;order&quot;, &quot;status,orderDate&quot;, new FetchConfig().query()).fetch(&quot;order.customer&quot;, &quot;name&quot;).where()
+ * query.setRawSql(rawSql).fetch(&quot;order&quot;, &quot;status,orderDate&quot;, new FetchConfig().query())
+ *     .fetch(&quot;order.customer&quot;, &quot;name&quot;).where()
  *     .gt(&quot;order.id&quot;, 0).having().gt(&quot;totalAmount&quot;, 20).order().desc(&quot;totalAmount&quot;).setMaxRows(10);
  * 
  * </pre>
@@ -214,7 +220,8 @@ public final class RawSql implements Serializable {
     /**
      * Construct for parsed SQL.
      */
-    protected Sql(int queryHashCode, String preFrom, String preWhere, boolean andWhereExpr, String preHaving, boolean andHavingExpr,
+    protected Sql(int queryHashCode, String preFrom, String preWhere, boolean andWhereExpr,
+        String preHaving, boolean andHavingExpr,
         String orderBy, boolean distinct) {
 
       this.queryHashCode = queryHashCode;
@@ -240,7 +247,8 @@ public final class RawSql implements Serializable {
       if (!parsed) {
         return "unparsed[" + unparsedSql + "]";
       }
-      return "select[" + preFrom + "] preWhere[" + preWhere + "] preHaving[" + preHaving + "] orderBy[" + orderBy + "]";
+      return "select[" + preFrom + "] preWhere[" + preWhere + "] preHaving[" + preHaving
+          + "] orderBy[" + orderBy + "]";
     }
 
     public boolean isDistinct() {
@@ -408,7 +416,8 @@ public final class RawSql implements Serializable {
       } else {
         Column column = dbColumnMap.get(dbColumn);
         if (column == null) {
-          String msg = "DB Column [" + dbColumn + "] not found in mapping. Expecting one of [" + dbColumnMap.keySet() + "]";
+          String msg = "DB Column [" + dbColumn + "] not found in mapping. Expecting one of ["
+              + dbColumnMap.keySet() + "]";
           throw new IllegalArgumentException(msg);
         }
         column.setPropertyName(propertyName);
@@ -486,7 +495,7 @@ public final class RawSql implements Serializable {
       private final String dbAlias;
 
       private String propertyName;
-      
+
       /**
        * Construct a Column.
        */
@@ -511,11 +520,11 @@ public final class RawSql implements Serializable {
         }
         int dotPos = dbColumn.indexOf('.');
         if (dotPos > -1) {
-          dbColumn = dbColumn.substring(dotPos+1);
+          dbColumn = dbColumn.substring(dotPos + 1);
         }
         return CamelCaseHelper.toCamelFromUnderscore(dbColumn);
       }
-      
+
       private void checkMapping() {
         if (propertyName == null) {
           String msg = "No propertyName defined (Column mapping) for dbColumn [" + dbColumn + "]";

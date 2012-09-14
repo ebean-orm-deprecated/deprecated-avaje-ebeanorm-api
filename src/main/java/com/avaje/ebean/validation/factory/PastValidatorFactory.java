@@ -9,49 +9,49 @@ import java.util.Date;
  */
 public class PastValidatorFactory implements ValidatorFactory {
 
-	Validator DATE = new DateValidator();
-	Validator CALENDAR = new CalendarValidator();
+  Validator DATE = new DateValidator();
+  Validator CALENDAR = new CalendarValidator();
 
-	public Validator create(Annotation annotation, Class<?> type) {
-		if (Date.class.isAssignableFrom(type)) {
-			return DATE;
-		}
-		if (Calendar.class.isAssignableFrom(type)) {
-			return CALENDAR;
-		}
-		String msg = "Can not use @Past on type " + type;
-		throw new RuntimeException(msg);
-	}
+  public Validator create(Annotation annotation, Class<?> type) {
+    if (Date.class.isAssignableFrom(type)) {
+      return DATE;
+    }
+    if (Calendar.class.isAssignableFrom(type)) {
+      return CALENDAR;
+    }
+    String msg = "Can not use @Past on type " + type;
+    throw new RuntimeException(msg);
+  }
 
-	private static class DateValidator extends NoAttributesValidator {
+  private static class DateValidator extends NoAttributesValidator {
 
-		public String getKey() {
-			return "past";
-		}
+    public String getKey() {
+      return "past";
+    }
 
-		public boolean isValid(Object value) {
-			if (value == null) {
-				return true;
-			}
+    public boolean isValid(Object value) {
+      if (value == null) {
+        return true;
+      }
 
-			Date date = (Date) value;
-			return date.before(new Date());
-		}
-	}
+      Date date = (Date) value;
+      return date.before(new Date());
+    }
+  }
 
-	private static class CalendarValidator extends NoAttributesValidator {
+  private static class CalendarValidator extends NoAttributesValidator {
 
-		public String getKey() {
-			return "past";
-		}
+    public String getKey() {
+      return "past";
+    }
 
-		public boolean isValid(Object value) {
-			if (value == null) {
-				return true;
-			}
+    public boolean isValid(Object value) {
+      if (value == null) {
+        return true;
+      }
 
-			Calendar cal = (Calendar) value;
-			return cal.before(Calendar.getInstance());
-		}
-	}
+      Calendar cal = (Calendar) value;
+      return cal.before(Calendar.getInstance());
+    }
+  }
 }

@@ -33,66 +33,67 @@ import com.avaje.ebean.util.ClassUtil;
  */
 public class EbeanServerFactory {
 
-	private static final Logger logger = Logger.getLogger(EbeanServerFactory.class.getName());
+  private static final Logger logger = Logger.getLogger(EbeanServerFactory.class.getName());
 
-	private static BootupEbeanManager serverFactory = createServerFactory();
+  private static BootupEbeanManager serverFactory = createServerFactory();
 
-	/**
-	 * Create using ebean.properties to configure the server.
-	 */
-	public static EbeanServer create(String name) {
+  /**
+   * Create using ebean.properties to configure the server.
+   */
+  public static EbeanServer create(String name) {
 
-		EbeanServer server = serverFactory.createServer(name);
+    EbeanServer server = serverFactory.createServer(name);
 
-		return server;
-	}
+    return server;
+  }
 
-	/**
-	 * Create using the ServerConfig object to configure the server.
-	 */
-	public static EbeanServer create(ServerConfig config) {
+  /**
+   * Create using the ServerConfig object to configure the server.
+   */
+  public static EbeanServer create(ServerConfig config) {
 
-		if (config.getName() == null) {
-			throw new PersistenceException("The name is null (it is required)");
-		}
+    if (config.getName() == null) {
+      throw new PersistenceException("The name is null (it is required)");
+    }
 
-		EbeanServer server = serverFactory.createServer(config);
+    EbeanServer server = serverFactory.createServer(config);
 
-		if (config.isDefaultServer()) {
-			GlobalProperties.setSkipPrimaryServer(true);
-		}
-		if (config.isRegister()) {
-			Ebean.register(server, config.isDefaultServer());
-		}
+    if (config.isDefaultServer()) {
+      GlobalProperties.setSkipPrimaryServer(true);
+    }
+    if (config.isRegister()) {
+      Ebean.register(server, config.isDefaultServer());
+    }
 
-		return server;
-	}
+    return server;
+  }
 
-	private static BootupEbeanManager createServerFactory() {
+  private static BootupEbeanManager createServerFactory() {
 
-//		String d___ =  com.avaje.ebean.server.core.DefaultServerFactory.class.getName();
-		String dflt = "com.avaje.ebeaninternal.server.core.DefaultServerFactory";
-		String implClassName = GlobalProperties.get("ebean.serverfactory", dflt);
+    // String d___ =
+    // com.avaje.ebean.server.core.DefaultServerFactory.class.getName();
+    String dflt = "com.avaje.ebeaninternal.server.core.DefaultServerFactory";
+    String implClassName = GlobalProperties.get("ebean.serverfactory", dflt);
 
-		int delaySecs = GlobalProperties.getInt("ebean.start.delay", 0);
-		if (delaySecs > 0) {
-			try {
-				// perhaps useful to delay the startup to give time to
-				// attach a debugger when running in a server like tomcat.
-				String m = "Ebean sleeping " + delaySecs + " seconds due to ebean.start.delay";
-				logger.log(Level.INFO, m);
-				Thread.sleep(delaySecs * 1000);
+    int delaySecs = GlobalProperties.getInt("ebean.start.delay", 0);
+    if (delaySecs > 0) {
+      try {
+        // perhaps useful to delay the startup to give time to
+        // attach a debugger when running in a server like tomcat.
+        String m = "Ebean sleeping " + delaySecs + " seconds due to ebean.start.delay";
+        logger.log(Level.INFO, m);
+        Thread.sleep(delaySecs * 1000);
 
-			} catch (InterruptedException e) {
-				String m = "Interrupting debug.start.delay of " + delaySecs;
-				logger.log(Level.SEVERE, m, e);
-			}
-		}
-		try {
-			// use a client side implementation?
-		    return (BootupEbeanManager)ClassUtil.newInstance(implClassName);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+      } catch (InterruptedException e) {
+        String m = "Interrupting debug.start.delay of " + delaySecs;
+        logger.log(Level.SEVERE, m, e);
+      }
+    }
+    try {
+      // use a client side implementation?
+      return (BootupEbeanManager) ClassUtil.newInstance(implClassName);
+    } catch (Exception ex) {
+      throw new RuntimeException(ex);
+    }
+  }
 }

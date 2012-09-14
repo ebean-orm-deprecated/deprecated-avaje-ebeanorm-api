@@ -19,101 +19,101 @@ import com.avaje.ebean.bean.ObjectGraphOrigin;
 @Entity
 public class MetaAutoFetchTunedQueryInfo implements Serializable {
 
-	private static final long serialVersionUID = 3119991928889170215L;
+  private static final long serialVersionUID = 3119991928889170215L;
 
-	@Id
-	private String id;
-		
-	private String beanType;
-	
-	/**
-	 * The profile query point (call stack and query).
-	 */
-	private ObjectGraphOrigin origin;
+  @Id
+  private String id;
 
-	/**
-	 * The tuned query details with joins and properties.
-	 */
-	private String tunedDetail;
+  private String beanType;
 
-	/**
-	 * The number of times profiling has been collected for this query point.
-	 */
-	private int profileCount;
-	
-	/**
-	 * The number of queries tuned by this info.
-	 */
-	private int tunedCount;
+  /**
+   * The profile query point (call stack and query).
+   */
+  private ObjectGraphOrigin origin;
 
-	private long lastTuneTime;
-	
-	public MetaAutoFetchTunedQueryInfo() {
+  /**
+   * The tuned query details with joins and properties.
+   */
+  private String tunedDetail;
 
-	}
-	
-	public MetaAutoFetchTunedQueryInfo(final ObjectGraphOrigin origin, String tunedDetail,
-			int profileCount, int tunedCount, long lastTuneTime) {
-		
-		this.origin = origin;
-		this.beanType = origin == null ? null : origin.getBeanType();
-		this.id = origin == null ? null : origin.getKey();
-		this.tunedDetail = tunedDetail;
-		this.profileCount = profileCount;
-		this.tunedCount = tunedCount;
-		this.lastTuneTime = lastTuneTime;
-	}
+  /**
+   * The number of times profiling has been collected for this query point.
+   */
+  private int profileCount;
 
-	/**
-	 * Return the query point key.
-	 */
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * Return the type of bean this is tuned for.
-	 */
-	public String getBeanType() {
-		return beanType;
-	}
+  /**
+   * The number of queries tuned by this info.
+   */
+  private int tunedCount;
 
-	/**
-	 * Return the query point.
-	 */
-	public ObjectGraphOrigin getOrigin() {
-		return origin;
-	}
+  private long lastTuneTime;
 
-	/**
-	 * The tuned query detail in string form.
-	 */
-	public String getTunedDetail() {
-		return tunedDetail;
-	}
+  public MetaAutoFetchTunedQueryInfo() {
 
-	/**
-	 * The number of profiled queries the tuned query is based on.
-	 */
-	public int getProfileCount() {
-		return profileCount;
-	}
-	
-	/**
-	 * Return the number of queries tuned.
-	 */
-	public int getTunedCount() {
-		return tunedCount;
-	}
-	
-	/**
-	 * Return the time of the last tune (that changed the query).
-	 */
-	public long getLastTuneTime() {
-		return lastTuneTime;
-	}
+  }
 
-	public String toString() {
-		return "origin[" + origin + "] query[" + tunedDetail + "] profileCount["+ profileCount + "]";
-	}
+  public MetaAutoFetchTunedQueryInfo(final ObjectGraphOrigin origin, String tunedDetail,
+      int profileCount, int tunedCount, long lastTuneTime) {
+
+    this.origin = origin;
+    this.beanType = origin == null ? null : origin.getBeanType();
+    this.id = origin == null ? null : origin.getKey();
+    this.tunedDetail = tunedDetail;
+    this.profileCount = profileCount;
+    this.tunedCount = tunedCount;
+    this.lastTuneTime = lastTuneTime;
+  }
+
+  /**
+   * Return the query point key.
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Return the type of bean this is tuned for.
+   */
+  public String getBeanType() {
+    return beanType;
+  }
+
+  /**
+   * Return the query point.
+   */
+  public ObjectGraphOrigin getOrigin() {
+    return origin;
+  }
+
+  /**
+   * The tuned query detail in string form.
+   */
+  public String getTunedDetail() {
+    return tunedDetail;
+  }
+
+  /**
+   * The number of profiled queries the tuned query is based on.
+   */
+  public int getProfileCount() {
+    return profileCount;
+  }
+
+  /**
+   * Return the number of queries tuned.
+   */
+  public int getTunedCount() {
+    return tunedCount;
+  }
+
+  /**
+   * Return the time of the last tune (that changed the query).
+   */
+  public long getLastTuneTime() {
+    return lastTuneTime;
+  }
+
+  public String toString() {
+    return "origin[" + origin + "] query[" + tunedDetail + "] profileCount[" + profileCount + "]";
+  }
 }

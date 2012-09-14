@@ -35,17 +35,17 @@ import java.lang.annotation.Target;
  * property or when there is a join to that OneToMany property.
  * </p>
  */
-@Target( { ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Where {
 
-	/**
-	 * The clause added to the lazy load query.
-	 * <p>
-	 * Note that you can include "${ta}" as a place holder for the table alias
-	 * if you need to include the table alias in the clause.
-	 * </p>
-	 */
-	String clause();
+  /**
+   * The clause added to the lazy load query.
+   * <p>
+   * Note that you can include "${ta}" as a place holder for the table alias if
+   * you need to include the table alias in the clause.
+   * </p>
+   */
+  String clause();
 
 };

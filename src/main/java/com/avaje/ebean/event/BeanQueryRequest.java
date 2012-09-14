@@ -9,19 +9,19 @@ import com.avaje.ebean.Transaction;
  */
 public interface BeanQueryRequest<T> {
 
-	/**
-	 * Return the server processing the request.
-	 */
-	public EbeanServer getEbeanServer();
+  /**
+   * Return the server processing the request.
+   */
+  public EbeanServer getEbeanServer();
 
-	/**
-	 * Return the Transaction associated with this request.
-	 */
-	public Transaction getTransaction();
-	
-	/**
-	 * Returns the query.
-	 */
-	public Query<T> getQuery();
-	
+  /**
+   * Return the Transaction associated with this request.
+   */
+  public Transaction getTransaction();
+
+  /**
+   * Returns the query.
+   */
+  public Query<T> getQuery();
+
 }

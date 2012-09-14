@@ -13,12 +13,12 @@ import java.lang.annotation.Target;
  * that is assigned to the bean properties.
  * </p>
  */
-@Target( { ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidatorMeta {
 
-	/**
-	 * Specify the factory used to build the specific Validator.
-	 */
-	Class<?> factory() default void.class;
+  /**
+   * Specify the factory used to build the specific Validator.
+   */
+  Class<?> factory() default void.class;
 }

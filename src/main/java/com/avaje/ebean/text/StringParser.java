@@ -10,8 +10,8 @@ package com.avaje.ebean.text;
  */
 public interface StringParser {
 
-	/**
-	 * Convert a String value into an Object value.
-	 */
-	public Object parse(String value);
+  /**
+   * Convert a String value into an Object value.
+   */
+  public Object parse(String value);
 }

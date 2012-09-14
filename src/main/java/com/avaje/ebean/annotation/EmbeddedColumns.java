@@ -12,20 +12,20 @@ import java.lang.annotation.Target;
  * standard JPA.
  * </p>
  */
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EmbeddedColumns {
 
-	/**
-	 * A list of property names mapped to DB columns.
-	 * <p>
-	 * For example <code>currency=IN_CURR, amount=IN_AMOUNT</code>
-	 * </p>
-	 * <p>
-	 * Where currency and amount are properties and IN_CURR and IN_AMOUNT are
-	 * the respective DB columns these properties will be mapped to.
-	 * </p>
-	 */
-	String columns() default "";
+  /**
+   * A list of property names mapped to DB columns.
+   * <p>
+   * For example <code>currency=IN_CURR, amount=IN_AMOUNT</code>
+   * </p>
+   * <p>
+   * Where currency and amount are properties and IN_CURR and IN_AMOUNT are the
+   * respective DB columns these properties will be mapped to.
+   * </p>
+   */
+  String columns() default "";
 
 };

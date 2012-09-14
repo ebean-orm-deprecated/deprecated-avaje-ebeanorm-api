@@ -7,12 +7,11 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.NotNullValidatorFactory;
 
-
 /**
  * Validate property as not null.
  */
-@ValidatorMeta(factory=NotNullValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD})
+@ValidatorMeta(factory = NotNullValidatorFactory.class)
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotNull {
 

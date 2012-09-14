@@ -6,12 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * For a timestamp property that is set to the datetime when the
- * entity was last updated.
+ * For a timestamp property that is set to the datetime when the entity was last
+ * updated.
  */
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UpdatedTimestamp {
-
 
 };

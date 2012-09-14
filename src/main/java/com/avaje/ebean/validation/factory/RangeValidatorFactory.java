@@ -7,191 +7,190 @@ import java.util.Map;
 
 import com.avaje.ebean.validation.Range;
 
-
 /**
  * Creates a String length validator.
  */
 public final class RangeValidatorFactory implements ValidatorFactory {
 
-	/**
-	 * Hold a cache because these validators could be used lots of properties
-	 * and the LengthValidator is safe for concurrent use.
-	 * <p>
-	 * This cache has only single threaded access through the synchronised
-	 * create() method.
-	 * </p>
-	 */
-	private static final Map<String, Validator> cache = new HashMap<String, Validator>();
+  /**
+   * Hold a cache because these validators could be used lots of properties and
+   * the LengthValidator is safe for concurrent use.
+   * <p>
+   * This cache has only single threaded access through the synchronised
+   * create() method.
+   * </p>
+   */
+  private static final Map<String, Validator> cache = new HashMap<String, Validator>();
 
-	public Validator create(Annotation annotation, Class<?> type) {
-		Range range = (Range) annotation;
-		return create(range.min(), range.max(), type);
-	}
-		
-	public synchronized Validator create(long min, long max, Class<?> type) {
+  public Validator create(Annotation annotation, Class<?> type) {
+    Range range = (Range) annotation;
+    return create(range.min(), range.max(), type);
+  }
 
-		String key = type + ":" + min + ":" + max;
-		Validator validator = cache.get(key);
-		if (validator != null) {
-			return validator;
-		}
-		if (type.equals(String.class)) {
-			validator = new StringValidator(min, max);
-			
-		} else if (useDouble(type)) {
-			validator = new DoubleValidator(min, max);
+  public synchronized Validator create(long min, long max, Class<?> type) {
 
-		} else if (useLong(type)) {
-			validator = new LongValidator(min, max);
-			
-		} else {
-			String msg = "@Range annotation not assignable to type " + type;
-			throw new RuntimeException(msg);
-		}
+    String key = type + ":" + min + ":" + max;
+    Validator validator = cache.get(key);
+    if (validator != null) {
+      return validator;
+    }
+    if (type.equals(String.class)) {
+      validator = new StringValidator(min, max);
 
-		cache.put(key, validator);
-		return validator;
-	}
+    } else if (useDouble(type)) {
+      validator = new DoubleValidator(min, max);
 
-	/**
-	 * Return true if use long precision for range test.
-	 */
-	private static boolean useLong(Class<?> type) {
-		if (type.equals(int.class) || type.equals(long.class)|| type.equals(short.class)){
-			return true;
-		}
-		// bit of a catch all ... so must be tested
-		// after useDouble...
-		if (Number.class.isAssignableFrom(type)){
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Return true if use double precision for range test.
-	 */
-	private static boolean useDouble(Class<?> type) {
-		if (type.equals(float.class) || type.equals(double.class)){
-			return true;
-		}
-		if (type.equals(BigDecimal.class)){
-			return true;
-		}
-		if (Double.class.isAssignableFrom(type)){
-			return true;
-		}
-		if (Float.class.isAssignableFrom(type)){
-			return true;
-		}
-		return false;
-	}
+    } else if (useLong(type)) {
+      validator = new LongValidator(min, max);
 
-	/**
-	 * The Double validator.
-	 */
-	private static class DoubleValidator implements Validator {
+    } else {
+      String msg = "@Range annotation not assignable to type " + type;
+      throw new RuntimeException(msg);
+    }
 
-		final long min;
-		final long max;
-		final String key;
-		final Object[] attributes;
+    cache.put(key, validator);
+    return validator;
+  }
 
-		private DoubleValidator(long min, long max) {
-			this.min = min;
-			this.max = max;
-			this.key = determineKey(min, max);
-			this.attributes = determineAttributes(min, max);
-		}
+  /**
+   * Return true if use long precision for range test.
+   */
+  private static boolean useLong(Class<?> type) {
+    if (type.equals(int.class) || type.equals(long.class) || type.equals(short.class)) {
+      return true;
+    }
+    // bit of a catch all ... so must be tested
+    // after useDouble...
+    if (Number.class.isAssignableFrom(type)) {
+      return true;
+    }
+    return false;
+  }
 
-		private String determineKey(long min, long max) {
-			if (min > Long.MIN_VALUE && max < Long.MAX_VALUE) {
-				return "range.minmax";
-			} else if (min > Long.MIN_VALUE) {
-				return "range.min";
-			} else {
-				return "range.max";
-			}
-		}
+  /**
+   * Return true if use double precision for range test.
+   */
+  private static boolean useDouble(Class<?> type) {
+    if (type.equals(float.class) || type.equals(double.class)) {
+      return true;
+    }
+    if (type.equals(BigDecimal.class)) {
+      return true;
+    }
+    if (Double.class.isAssignableFrom(type)) {
+      return true;
+    }
+    if (Float.class.isAssignableFrom(type)) {
+      return true;
+    }
+    return false;
+  }
 
-		private Object[] determineAttributes(long min, long max) {
-			if (min > Long.MIN_VALUE && max < Long.MAX_VALUE) {
-				return new Object[] { min, max };
-			} else if (min > Long.MIN_VALUE) {
-				return new Object[] { min };
-			} else {
-				return new Object[] { max };
-			}
-		}
+  /**
+   * The Double validator.
+   */
+  private static class DoubleValidator implements Validator {
 
-		/**
-		 * Returns the min and/or max attributes.
-		 */
-		public Object[] getAttributes() {
-			return attributes;
-		}
+    final long min;
+    final long max;
+    final String key;
+    final Object[] attributes;
 
-		public String getKey() {
-			return key;
-		}
+    private DoubleValidator(long min, long max) {
+      this.min = min;
+      this.max = max;
+      this.key = determineKey(min, max);
+      this.attributes = determineAttributes(min, max);
+    }
 
-		public boolean isValid(Object value) {
-			if (value == null) {
-				return true;
-			}
-			Number n = (Number) value;
-			double dv = n.doubleValue();
-			return dv >= min && dv <= max;
-		}
-		
-		public String toString() {
-			return getClass().getName()+"key:"+key+" min:"+min+" max:"+max;
-		}
-	}
+    private String determineKey(long min, long max) {
+      if (min > Long.MIN_VALUE && max < Long.MAX_VALUE) {
+        return "range.minmax";
+      } else if (min > Long.MIN_VALUE) {
+        return "range.min";
+      } else {
+        return "range.max";
+      }
+    }
 
-	/**
-	 * Uses long precision for testing.
-	 */
-	private static class LongValidator extends DoubleValidator {
+    private Object[] determineAttributes(long min, long max) {
+      if (min > Long.MIN_VALUE && max < Long.MAX_VALUE) {
+        return new Object[] { min, max };
+      } else if (min > Long.MIN_VALUE) {
+        return new Object[] { min };
+      } else {
+        return new Object[] { max };
+      }
+    }
 
-		private LongValidator(long min, long max) {
-			super(min, max);
-		}
+    /**
+     * Returns the min and/or max attributes.
+     */
+    public Object[] getAttributes() {
+      return attributes;
+    }
 
-		@Override
-		public boolean isValid(Object value) {
-			if (value == null) {
-				return true;
-			}
-			Number n = (Number) value;
-			long lv = n.longValue();
-			return lv >= min && lv <= max;
-		}
-	}
+    public String getKey() {
+      return key;
+    }
 
-	/**
-	 * Uses BigDecimal to convert to double prior to testing.
-	 */
-	private static class StringValidator extends DoubleValidator {
+    public boolean isValid(Object value) {
+      if (value == null) {
+        return true;
+      }
+      Number n = (Number) value;
+      double dv = n.doubleValue();
+      return dv >= min && dv <= max;
+    }
 
-		//final BigDecimal bdMin;
-		//final BigDecimal bdMax;
+    public String toString() {
+      return getClass().getName() + "key:" + key + " min:" + min + " max:" + max;
+    }
+  }
 
-		private StringValidator(long min, long max) {
-			super(min, max);
-			//bdMin = BigDecimal.valueOf(min);
-			//bdMax = BigDecimal.valueOf(max);
-		}
+  /**
+   * Uses long precision for testing.
+   */
+  private static class LongValidator extends DoubleValidator {
 
-		@Override
-		public boolean isValid(Object value) {
-			if (value == null) {
-				return true;
-			}
+    private LongValidator(long min, long max) {
+      super(min, max);
+    }
 
-			BigDecimal bd = new BigDecimal((String) value);
-			double dv = bd.doubleValue();
-			return dv >= min && dv <= max;	
-		}
-	}
+    @Override
+    public boolean isValid(Object value) {
+      if (value == null) {
+        return true;
+      }
+      Number n = (Number) value;
+      long lv = n.longValue();
+      return lv >= min && lv <= max;
+    }
+  }
+
+  /**
+   * Uses BigDecimal to convert to double prior to testing.
+   */
+  private static class StringValidator extends DoubleValidator {
+
+    // final BigDecimal bdMin;
+    // final BigDecimal bdMax;
+
+    private StringValidator(long min, long max) {
+      super(min, max);
+      // bdMin = BigDecimal.valueOf(min);
+      // bdMax = BigDecimal.valueOf(max);
+    }
+
+    @Override
+    public boolean isValid(Object value) {
+      if (value == null) {
+        return true;
+      }
+
+      BigDecimal bd = new BigDecimal((String) value);
+      double dv = bd.doubleValue();
+      return dv >= min && dv <= max;
+    }
+  }
 }

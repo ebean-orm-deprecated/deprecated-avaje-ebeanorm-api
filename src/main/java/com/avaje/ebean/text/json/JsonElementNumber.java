@@ -1,6 +1,5 @@
 package com.avaje.ebean.text.json;
 
-
 /**
  * JSON number element.
  * <p>
@@ -15,56 +14,54 @@ package com.avaje.ebean.text.json;
  */
 public class JsonElementNumber implements JsonElement {
 
-    private final String value;
-    
-    public JsonElementNumber(String value) {
-        this.value = value;
-    }
+  private final String value;
 
-    public String getValue() {
-        return value;
-    }
-    
-    public String toString() {
-        return value;
-    }
+  public JsonElementNumber(String value) {
+    this.value = value;
+  }
 
-    public boolean isPrimitive() {
-        return true;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    public String toPrimitiveString() {
-        return value;
-    }
+  public String toString() {
+    return value;
+  }
 
-    public Object eval(String exp){
-    	if (exp != null){
-    		throw new IllegalArgumentException("expression ["+exp+"] not allowed on number");
-    	}
-    	return Double.parseDouble(value);
-    }
+  public boolean isPrimitive() {
+    return true;
+  }
 
-    public int evalInt(String exp) {
-    	if (exp != null){
-    		throw new IllegalArgumentException("expression ["+exp+"] not allowed on number");
-    	}
-    	return Integer.parseInt(value);
-    }
+  public String toPrimitiveString() {
+    return value;
+  }
 
-    public String evalString(String exp) {
-    	if (exp != null){
-    		throw new IllegalArgumentException("expression ["+exp+"] not allowed on number");
-    	}
-    	return value;
+  public Object eval(String exp) {
+    if (exp != null) {
+      throw new IllegalArgumentException("expression [" + exp + "] not allowed on number");
     }
+    return Double.parseDouble(value);
+  }
 
-    public boolean evalBoolean(String exp) {
-    	if (exp != null){
-    		throw new IllegalArgumentException("expression ["+exp+"] not allowed on number");
-    	}
-    	return Boolean.parseBoolean(value);
+  public int evalInt(String exp) {
+    if (exp != null) {
+      throw new IllegalArgumentException("expression [" + exp + "] not allowed on number");
     }
+    return Integer.parseInt(value);
+  }
 
-    
+  public String evalString(String exp) {
+    if (exp != null) {
+      throw new IllegalArgumentException("expression [" + exp + "] not allowed on number");
+    }
+    return value;
+  }
+
+  public boolean evalBoolean(String exp) {
+    if (exp != null) {
+      throw new IllegalArgumentException("expression [" + exp + "] not allowed on number");
+    }
+    return Boolean.parseBoolean(value);
+  }
 
 }

@@ -7,6 +7,7 @@ package com.avaje.ebean;
  * want to process the beans one at a time rather than have all of the beans in
  * memory at once.
  * </p>
+ * 
  * <pre class="code">
  * SqlQueryListener listener = ...;
  *    
@@ -22,11 +23,11 @@ package com.avaje.ebean;
  */
 public interface SqlQueryListener {
 
-	/**
-	 * Process the bean that has just been read.
-	 * <p>
-	 * Note this bean will not be added to the List Set or Map.
-	 * </p>
-	 */
-	public void process(SqlRow bean);
+  /**
+   * Process the bean that has just been read.
+   * <p>
+   * Note this bean will not be added to the List Set or Map.
+   * </p>
+   */
+  public void process(SqlRow bean);
 }

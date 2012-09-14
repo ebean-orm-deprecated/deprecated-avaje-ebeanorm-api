@@ -14,47 +14,47 @@ import java.util.Iterator;
  * <pre class="code">
  * 
  * Query&lt;Customer&gt; query = server.find(Customer.class)
- *  .fetch(&quot;contacts&quot;, new FetchConfig().query(2))
- *  .where().gt(&quot;id&quot;, 0)
- *  .orderBy(&quot;id&quot;)
- *  .setMaxRows(2);
+ *     .fetch(&quot;contacts&quot;, new FetchConfig().query(2))
+ *     .where().gt(&quot;id&quot;, 0)
+ *     .orderBy(&quot;id&quot;)
+ *     .setMaxRows(2);
  * 
  * QueryIterator&lt;Customer&gt; it = query.findIterate();
  * try {
- *     while (it.hasNext()) {
- *         Customer customer = it.next();
- *         // do something with customer... 
- *     }
+ *   while (it.hasNext()) {
+ *     Customer customer = it.next();
+ *     // do something with customer...
+ *   }
  * } finally {
- *     // close the associated resources
- *     it.close();
+ *   // close the associated resources
+ *   it.close();
  * }
  * </pre>
  * 
  * @author rbygrave
  * 
  * @param <T>
- *            the type of entity bean in the iteration
+ *          the type of entity bean in the iteration
  */
 public interface QueryIterator<T> extends Iterator<T>, java.io.Closeable {
 
-    /**
-     * Returns <tt>true</tt> if the iteration has more elements.
-     */
-    public boolean hasNext();
+  /**
+   * Returns <tt>true</tt> if the iteration has more elements.
+   */
+  public boolean hasNext();
 
-    /**
-     * Returns the next element in the iteration.
-     */
-    public T next();
+  /**
+   * Returns the next element in the iteration.
+   */
+  public T next();
 
-    /**
-     * Remove is not allowed.
-     */
-    public void remove();
+  /**
+   * Remove is not allowed.
+   */
+  public void remove();
 
-    /**
-     * Close the underlying resources held by this iterator.
-     */
-    public void close();
+  /**
+   * Close the underlying resources held by this iterator.
+   */
+  public void close();
 }

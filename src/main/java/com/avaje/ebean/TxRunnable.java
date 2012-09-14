@@ -11,20 +11,20 @@ package com.avaje.ebean;
  * 
  * <pre class="code">
  * 
- * // this run method runs in a transaction scope 
+ * // this run method runs in a transaction scope
  * // which by default is TxScope.REQUIRED
  * 
  * Ebean.execute(new TxRunnable() {
- * 	public void run() {
- * 		User u1 = Ebean.find(User.class, 1);
- * 		User u2 = Ebean.find(User.class, 2);
+ *   public void run() {
+ *     User u1 = Ebean.find(User.class, 1);
+ *     User u2 = Ebean.find(User.class, 2);
  * 
- * 		u1.setName(&quot;u1 mod&quot;);
- * 		u2.setName(&quot;u2 mod&quot;);
+ *     u1.setName(&quot;u1 mod&quot;);
+ *     u2.setName(&quot;u2 mod&quot;);
  * 
- * 		Ebean.save(u1);
- * 		Ebean.save(u2);
- * 	}
+ *     Ebean.save(u1);
+ *     Ebean.save(u2);
+ *   }
  * });
  * </pre>
  * 
@@ -32,8 +32,8 @@ package com.avaje.ebean;
  */
 public interface TxRunnable {
 
-	/**
-	 * Run the method in a transaction sope.
-	 */
-	public void run();
+  /**
+   * Run the method in a transaction sope.
+   */
+  public void run();
 }

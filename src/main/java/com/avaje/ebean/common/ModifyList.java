@@ -8,85 +8,84 @@ import java.util.ListIterator;
 import com.avaje.ebean.bean.BeanCollection;
 
 /**
- * Wraps a List for the purposes of notifying removals and additions to
- * the BeanCollection owner.
+ * Wraps a List for the purposes of notifying removals and additions to the
+ * BeanCollection owner.
  * <p>
  * This is required for persisting ManyToMany objects. Additions and removals
  * become inserts and deletes to the intersection table.
  * </p>
  * <p>
- * Note that this is created by a call to subList() on a BeanList.
- * Thats its only purpose really. BeanList holds the actual List. 
+ * Note that this is created by a call to subList() on a BeanList. Thats its
+ * only purpose really. BeanList holds the actual List.
  * </p>
  */
 class ModifyList<E> extends ModifyCollection<E> implements List<E> {
 
-	/**
-	 * The underlying list.
-	 */
-	private final List<E> list;
-	
-	/**
-	 * Create with an Owner that is notified of any additions or deletions.
-	 */
-	ModifyList(BeanCollection<E> owner, List<E> list) {
-		super(owner, list);
-		this.list = list;
-	}
+  /**
+   * The underlying list.
+   */
+  private final List<E> list;
 
-	public void add(int index, E element) {
-		list.add(index, element);
-		owner.modifyAddition(element);
-	}
+  /**
+   * Create with an Owner that is notified of any additions or deletions.
+   */
+  ModifyList(BeanCollection<E> owner, List<E> list) {
+    super(owner, list);
+    this.list = list;
+  }
 
-	public boolean addAll(int index, Collection<? extends E> co) {
-		if (list.addAll(index, co)) {
-			Iterator<? extends E> it = co.iterator();
-			while (it.hasNext()) {
-				E o = it.next();
-				owner.modifyAddition(o);
-			}
-			return true;
-		}
-		return false;
-	}
+  public void add(int index, E element) {
+    list.add(index, element);
+    owner.modifyAddition(element);
+  }
 
-	public E get(int index) {
-		return list.get(index);
-	}
+  public boolean addAll(int index, Collection<? extends E> co) {
+    if (list.addAll(index, co)) {
+      Iterator<? extends E> it = co.iterator();
+      while (it.hasNext()) {
+        E o = it.next();
+        owner.modifyAddition(o);
+      }
+      return true;
+    }
+    return false;
+  }
 
-	public int indexOf(Object o) {
-		return list.indexOf(o);
-	}
+  public E get(int index) {
+    return list.get(index);
+  }
 
-	public int lastIndexOf(Object o) {
-		return list.lastIndexOf(o);
-	}
+  public int indexOf(Object o) {
+    return list.indexOf(o);
+  }
 
-	public ListIterator<E> listIterator() {
-		return new ModifyListIterator<E>(owner,list.listIterator());
-	}
+  public int lastIndexOf(Object o) {
+    return list.lastIndexOf(o);
+  }
 
-	public ListIterator<E> listIterator(int index) {
-		return new ModifyListIterator<E>(owner,list.listIterator(index));
-	}
+  public ListIterator<E> listIterator() {
+    return new ModifyListIterator<E>(owner, list.listIterator());
+  }
 
-	public E remove(int index) {
-		E o = list.remove(index);
-		owner.modifyRemoval(o);
-		return o;
-	}
+  public ListIterator<E> listIterator(int index) {
+    return new ModifyListIterator<E>(owner, list.listIterator(index));
+  }
 
-	public E set(int index, E element) {
-		E o = list.set(index, element);
-		owner.modifyAddition(element);
-		owner.modifyRemoval(o);
-		return o;
-	}
+  public E remove(int index) {
+    E o = list.remove(index);
+    owner.modifyRemoval(o);
+    return o;
+  }
 
-	public List<E> subList(int fromIndex, int toIndex) {
-		return new ModifyList<E>(owner, list.subList(fromIndex, toIndex));
-	}
-	
-	
+  public E set(int index, E element) {
+    E o = list.set(index, element);
+    owner.modifyAddition(element);
+    owner.modifyRemoval(o);
+    return o;
+  }
+
+  public List<E> subList(int fromIndex, int toIndex) {
+    return new ModifyList<E>(owner, list.subList(fromIndex, toIndex));
+  }
+
 }

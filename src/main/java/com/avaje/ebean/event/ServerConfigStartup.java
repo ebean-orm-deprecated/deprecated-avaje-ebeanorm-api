@@ -13,9 +13,9 @@ import com.avaje.ebean.config.ServerConfig;
  */
 public interface ServerConfigStartup {
 
-	/**
-	 * On starting configure the ServerConfig.
-	 */
-	public void onStart(ServerConfig serverConfig);
+  /**
+   * On starting configure the ServerConfig.
+   */
+  public void onStart(ServerConfig serverConfig);
 
 }

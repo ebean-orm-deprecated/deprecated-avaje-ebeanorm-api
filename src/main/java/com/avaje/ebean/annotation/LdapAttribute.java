@@ -13,30 +13,30 @@ import java.lang.annotation.Target;
  * 
  * @author rbygrave
  */
-@Target( { ElementType.FIELD })
+@Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LdapAttribute {
 
-    /**
-     * Specify the Attribute name this property maps to.
-     */
-    String name() default "";
+  /**
+   * Specify the Attribute name this property maps to.
+   */
+  String name() default "";
 
-    /**
-     * Specify a LdapAttributeAdpater which can be used for this specific
-     * property to convert between the logical bean property value and the LDAP
-     * Attribute value.
-     */
-    Class<?> adapter() default void.class;
-    
-    /**
-     * Set this to false so the property is not included in an insert.
-     */
-    boolean insertable() default true;
+  /**
+   * Specify a LdapAttributeAdpater which can be used for this specific property
+   * to convert between the logical bean property value and the LDAP Attribute
+   * value.
+   */
+  Class<?> adapter() default void.class;
 
-    /**
-     * Set this to false so the property is not included in an update.
-     */
-    boolean updatable() default true;
-    
+  /**
+   * Set this to false so the property is not included in an insert.
+   */
+  boolean insertable() default true;
+
+  /**
+   * Set this to false so the property is not included in an update.
+   */
+  boolean updatable() default true;
+
 };

@@ -12,13 +12,13 @@ import java.lang.annotation.Target;
  * FUTURE: Support explicit sql for SqlInsert, SqlUpdate and SqlDelete.
  * </p>
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Sql {
 
-	/**
-	 * The sql select statements.
-	 */
-	SqlSelect[] select() default { @SqlSelect };
+  /**
+   * The sql select statements.
+   */
+  SqlSelect[] select() default { @SqlSelect };
 
 };

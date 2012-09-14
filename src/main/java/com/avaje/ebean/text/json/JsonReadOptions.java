@@ -20,52 +20,52 @@ import java.util.Map;
  */
 public class JsonReadOptions {
 
-    protected JsonValueAdapter valueAdapter;
+  protected JsonValueAdapter valueAdapter;
 
-    protected Map<String, JsonReadBeanVisitor<?>> visitorMap;
+  protected Map<String, JsonReadBeanVisitor<?>> visitorMap;
 
-    /**
-     * Default constructor.
-     */
-    public JsonReadOptions() {
-        this.visitorMap = new LinkedHashMap<String, JsonReadBeanVisitor<?>>();
-    }
+  /**
+   * Default constructor.
+   */
+  public JsonReadOptions() {
+    this.visitorMap = new LinkedHashMap<String, JsonReadBeanVisitor<?>>();
+  }
 
-    /**
-     * Return the JsonValueAdapter.
-     */
-    public JsonValueAdapter getValueAdapter() {
-        return valueAdapter;
-    }
+  /**
+   * Return the JsonValueAdapter.
+   */
+  public JsonValueAdapter getValueAdapter() {
+    return valueAdapter;
+  }
 
-    /**
-     * Return the map of JsonReadBeanVisitor's.
-     */
-    public Map<String, JsonReadBeanVisitor<?>> getVisitorMap() {
-        return visitorMap;
-    }
+  /**
+   * Return the map of JsonReadBeanVisitor's.
+   */
+  public Map<String, JsonReadBeanVisitor<?>> getVisitorMap() {
+    return visitorMap;
+  }
 
-    /**
-     * Set a JsonValueAdapter for custom DateTime and Date formatting.
-     */
-    public JsonReadOptions setValueAdapter(JsonValueAdapter valueAdapter) {
-        this.valueAdapter = valueAdapter;
-        return this;
-    }
+  /**
+   * Set a JsonValueAdapter for custom DateTime and Date formatting.
+   */
+  public JsonReadOptions setValueAdapter(JsonValueAdapter valueAdapter) {
+    this.valueAdapter = valueAdapter;
+    return this;
+  }
 
-    /**
-     * Register a JsonReadBeanVisitor for the root level.
-     */
-    public JsonReadOptions addRootVisitor(JsonReadBeanVisitor<?> visitor) {
-        return addVisitor(null, visitor);
-    }
+  /**
+   * Register a JsonReadBeanVisitor for the root level.
+   */
+  public JsonReadOptions addRootVisitor(JsonReadBeanVisitor<?> visitor) {
+    return addVisitor(null, visitor);
+  }
 
-    /**
-     * Register a JsonReadBeanVisitor for a given path.
-     */
-    public JsonReadOptions addVisitor(String path, JsonReadBeanVisitor<?> visitor) {
-        visitorMap.put(path, visitor);
-        return this;
-    }
+  /**
+   * Register a JsonReadBeanVisitor for a given path.
+   */
+  public JsonReadOptions addVisitor(String path, JsonReadBeanVisitor<?> visitor) {
+    visitorMap.put(path, visitor);
+    return this;
+  }
 
 }

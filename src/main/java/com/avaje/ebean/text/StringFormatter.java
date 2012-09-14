@@ -10,8 +10,8 @@ package com.avaje.ebean.text;
  */
 public interface StringFormatter {
 
-	/**
-	 * Convert an Object value into a String value.
-	 */
-	public String format(Object value);
+  /**
+   * Convert an Object value into a String value.
+   */
+  public String format(Object value);
 }

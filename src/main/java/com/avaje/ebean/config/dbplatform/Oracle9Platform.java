@@ -8,8 +8,8 @@ package com.avaje.ebean.config.dbplatform;
  */
 public class Oracle9Platform extends Oracle10Platform {
 
-    public Oracle9Platform() {
-        super();
-    }
+  public Oracle9Platform() {
+    super();
+  }
 
 }

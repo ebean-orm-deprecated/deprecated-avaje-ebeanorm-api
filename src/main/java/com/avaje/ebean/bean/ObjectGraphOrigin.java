@@ -14,48 +14,48 @@ import java.io.Serializable;
  */
 public final class ObjectGraphOrigin implements Serializable {
 
-	private static final long serialVersionUID = 410937765287968707L;
+  private static final long serialVersionUID = 410937765287968707L;
 
-	private final CallStack callStack;
+  private final CallStack callStack;
 
-	private final String key;
+  private final String key;
 
-	private final String beanType;
+  private final String beanType;
 
-	public ObjectGraphOrigin(int queryHash, CallStack callStack, String beanType) {
-		this.callStack = callStack;
-		this.beanType = beanType;
-        this.key = callStack.getOriginKey(queryHash);
-	}
+  public ObjectGraphOrigin(int queryHash, CallStack callStack, String beanType) {
+    this.callStack = callStack;
+    this.beanType = beanType;
+    this.key = callStack.getOriginKey(queryHash);
+  }
 
-	/**
-	 * The key includes the queryPlan hash and the callStack hash. This becomes
-	 * the unique identifier for a query point.
-	 */
-	public String getKey() {
-		return key;
-	}
+  /**
+   * The key includes the queryPlan hash and the callStack hash. This becomes
+   * the unique identifier for a query point.
+   */
+  public String getKey() {
+    return key;
+  }
 
-	/**
-	 * The type of bean the query is fetching.
-	 */
-	public String getBeanType() {
-		return beanType;
-	}
-	
-	/**
-	 * The call stack involved.
-	 */
-	public CallStack getCallStack() {
-		return callStack;
-	}
+  /**
+   * The type of bean the query is fetching.
+   */
+  public String getBeanType() {
+    return beanType;
+  }
 
-	public String getFirstStackElement() {
-		return callStack.getFirstStackTraceElement().toString();
-	}
+  /**
+   * The call stack involved.
+   */
+  public CallStack getCallStack() {
+    return callStack;
+  }
 
-	public String toString() {
-		return key + " " + beanType + " " + callStack.getFirstStackTraceElement();
-	}
+  public String getFirstStackElement() {
+    return callStack.getFirstStackTraceElement().toString();
+  }
+
+  public String toString() {
+    return key + " " + beanType + " " + callStack.getFirstStackTraceElement();
+  }
 
 }

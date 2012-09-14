@@ -60,7 +60,8 @@ public class PostgresPlatform extends DatabasePlatform {
    * Create a Postgres specific sequence IdGenerator.
    */
   @Override
-  public IdGenerator createSequenceIdGenerator(BackgroundExecutor be, DataSource ds, String seqName, int batchSize) {
+  public IdGenerator createSequenceIdGenerator(BackgroundExecutor be, DataSource ds,
+      String seqName, int batchSize) {
 
     return new PostgresSequenceIdGenerator(be, ds, seqName, batchSize);
   }

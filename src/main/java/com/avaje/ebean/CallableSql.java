@@ -51,24 +51,24 @@ import java.sql.SQLException;
  * t.setBatchMode(true);
  * t.setBatchSize(10);
  * try {
- * 	cs.setParameter(1, &quot;Was&quot;);
- * 	cs.setParameter(2, &quot;Banana&quot;);
- * 	Ebean.execute(cs);
+ *   cs.setParameter(1, &quot;Was&quot;);
+ *   cs.setParameter(2, &quot;Banana&quot;);
+ *   Ebean.execute(cs);
  * 
- * 	cs.setParameter(1, &quot;Here&quot;);
- * 	cs.setParameter(2, &quot;Kumera&quot;);
- * 	Ebean.execute(cs);
+ *   cs.setParameter(1, &quot;Here&quot;);
+ *   cs.setParameter(2, &quot;Kumera&quot;);
+ *   Ebean.execute(cs);
  * 
- * 	cs.setParameter(1, &quot;More&quot;);
- * 	cs.setParameter(2, &quot;Apple&quot;);
- * 	Ebean.execute(cs);
+ *   cs.setParameter(1, &quot;More&quot;);
+ *   cs.setParameter(2, &quot;Apple&quot;);
+ *   Ebean.execute(cs);
  * 
- * 	//Ebean.externalModification(&quot;oe_order&quot;,true,false,false);
- * 	//Ebean.externalModification(&quot;oe_order_detail&quot;,true,true,false);
- * 	Ebean.commitTransaction();
+ *   // Ebean.externalModification(&quot;oe_order&quot;,true,false,false);
+ *   // Ebean.externalModification(&quot;oe_order_detail&quot;,true,true,false);
+ *   Ebean.commitTransaction();
  * 
  * } finally {
- * 	Ebean.endTransaction();
+ *   Ebean.endTransaction();
  * }
  * </pre>
  * 
@@ -77,119 +77,118 @@ import java.sql.SQLException;
  */
 public interface CallableSql {
 
-	/**
-	 * Return the label that is put into the transaction log.
-	 */
-	public String getLabel();
+  /**
+   * Return the label that is put into the transaction log.
+   */
+  public String getLabel();
 
-	/**
-	 * Set the label that is put in the transaction log.
-	 */
-	public CallableSql setLabel(String label);
+  /**
+   * Set the label that is put in the transaction log.
+   */
+  public CallableSql setLabel(String label);
 
-	/**
-	 * Return the statement execution timeout.
-	 */
-	public int getTimeout();
+  /**
+   * Return the statement execution timeout.
+   */
+  public int getTimeout();
 
-	/**
-	 * Return the callable sql.
-	 */
-	public String getSql();
+  /**
+   * Return the callable sql.
+   */
+  public String getSql();
 
-	/**
-	 * Set the statement execution timeout. Zero implies unlimited time.
-	 * <p>
-	 * This is set to the underlying CallableStatement.
-	 * </p>
-	 */
-	public CallableSql setTimeout(int secs);
+  /**
+   * Set the statement execution timeout. Zero implies unlimited time.
+   * <p>
+   * This is set to the underlying CallableStatement.
+   * </p>
+   */
+  public CallableSql setTimeout(int secs);
 
-	/**
-	 * Set the callable sql.
-	 */
-	public CallableSql setSql(String sql);
+  /**
+   * Set the callable sql.
+   */
+  public CallableSql setSql(String sql);
 
-	/**
-	 * Bind a parameter that is bound as a IN parameter.
-	 * <p>
-	 * position starts at value 1 (not 0) to be consistent with
-	 * CallableStatement.
-	 * </p>
-	 * <p>
-	 * This is designed so that you do not need to set params in index order.
-	 * You can set/register param 2 before param 1 etc.
-	 * </p>
-	 * 
-	 * @param position
-	 *            the index position of the parameter.
-	 * @param value
-	 *            the value of the parameter.
-	 */
-	public CallableSql bind(int position, Object value);
+  /**
+   * Bind a parameter that is bound as a IN parameter.
+   * <p>
+   * position starts at value 1 (not 0) to be consistent with CallableStatement.
+   * </p>
+   * <p>
+   * This is designed so that you do not need to set params in index order. You
+   * can set/register param 2 before param 1 etc.
+   * </p>
+   * 
+   * @param position
+   *          the index position of the parameter.
+   * @param value
+   *          the value of the parameter.
+   */
+  public CallableSql bind(int position, Object value);
 
-	/**
-	 * Bind a positioned parameter (same as bind method).
-	 * 
-	 * @param position
-	 *            the index position of the parameter.
-	 * @param value
-	 *            the value of the parameter.
-	 */
-	public CallableSql setParameter(int position, Object value);
+  /**
+   * Bind a positioned parameter (same as bind method).
+   * 
+   * @param position
+   *          the index position of the parameter.
+   * @param value
+   *          the value of the parameter.
+   */
+  public CallableSql setParameter(int position, Object value);
 
-	/**
-	 * Register an OUT parameter.
-	 * <p>
-	 * Note that position starts at value 1 (not 0) to be consistent with
-	 * CallableStatement.
-	 * </p>
-	 * <p>
-	 * This is designed so that you do not need to register params in index
-	 * order. You can set/register param 2 before param 1 etc.
-	 * </p>
-	 * 
-	 * @param position
-	 *            the index position of the parameter (starts with 1).
-	 * @param type
-	 *            the jdbc type of the OUT parameter that will be read.
-	 */
-	public CallableSql registerOut(int position, int type);
+  /**
+   * Register an OUT parameter.
+   * <p>
+   * Note that position starts at value 1 (not 0) to be consistent with
+   * CallableStatement.
+   * </p>
+   * <p>
+   * This is designed so that you do not need to register params in index order.
+   * You can set/register param 2 before param 1 etc.
+   * </p>
+   * 
+   * @param position
+   *          the index position of the parameter (starts with 1).
+   * @param type
+   *          the jdbc type of the OUT parameter that will be read.
+   */
+  public CallableSql registerOut(int position, int type);
 
-	/**
-	 * Return an OUT parameter value.
-	 * <p>
-	 * position starts at value 1 (not 0) to be consistent with
-	 * CallableStatement.
-	 * </p>
-	 * <p>
-	 * This can only be called after the CallableSql has been executed. When run
-	 * in batch mode you effectively can't use this method.
-	 * </p>
-	 */
-	public Object getObject(int position);
+  /**
+   * Return an OUT parameter value.
+   * <p>
+   * position starts at value 1 (not 0) to be consistent with CallableStatement.
+   * </p>
+   * <p>
+   * This can only be called after the CallableSql has been executed. When run
+   * in batch mode you effectively can't use this method.
+   * </p>
+   */
+  public Object getObject(int position);
 
-	/**
-	 * 
-	 * You can extend this object and override this method for more advanced
-	 * stored procedure calls. This would be the case when ResultSets are
-	 * returned etc.
-	 */
-	public boolean executeOverride(CallableStatement cstmt) throws SQLException;
+  /**
+   * 
+   * You can extend this object and override this method for more advanced
+   * stored procedure calls. This would be the case when ResultSets are returned
+   * etc.
+   */
+  public boolean executeOverride(CallableStatement cstmt) throws SQLException;
 
-	/**
-	 * Add table modification information to the TransactionEvent.
-	 * <p>
-	 * This would be similar to using the
-	 * <code>Ebean.externalModification()</code> method. It may be easier and
-	 * make more sense to set it here with the CallableSql.
-	 * </p>
-	 * <p>
-	 * For UpdateSql the table modification information is derived by parsing
-	 * the sql to determine the table name and whether it was an insert, update
-	 * or delete.
-	 * </p>
-	 */
-	public CallableSql addModification(String tableName, boolean inserts, boolean updates, boolean deletes);
+  /**
+   * Add table modification information to the TransactionEvent.
+   * <p>
+   * This would be similar to using the
+   * <code>Ebean.externalModification()</code> method. It may be easier and make
+   * more sense to set it here with the CallableSql.
+   * </p>
+   * <p>
+   * For UpdateSql the table modification information is derived by parsing the
+   * sql to determine the table name and whether it was an insert, update or
+   * delete.
+   * </p>
+   */
+  public CallableSql addModification(String tableName, boolean inserts, boolean updates,
+      boolean deletes);
 
 }

@@ -13,23 +13,22 @@ import java.util.Map;
  * @author rbygrave
  * 
  * @param <T>
- *            The type of entity bean
+ *          The type of entity bean
  */
 public interface JsonReadBeanVisitor<T> {
 
-    /**
-     * Visit the bean that has just been processed.
-     * <p>
-     * This provides a method of customising the bean and processing any custom
-     * JSON content.
-     * </p>
-     * 
-     * @param bean
-     *            the bean being processed
-     * @param unmapped
-     *            Map of any JSON elements that didn't map to known bean
-     *            properties
-     */
-    public void visit(T bean, Map<String, JsonElement> unmapped);
+  /**
+   * Visit the bean that has just been processed.
+   * <p>
+   * This provides a method of customising the bean and processing any custom
+   * JSON content.
+   * </p>
+   * 
+   * @param bean
+   *          the bean being processed
+   * @param unmapped
+   *          Map of any JSON elements that didn't map to known bean properties
+   */
+  public void visit(T bean, Map<String, JsonElement> unmapped);
 
 }

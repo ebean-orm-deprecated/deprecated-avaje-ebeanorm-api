@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
  * 
  * @author rbygrave
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LdapId {
-    
+
 };

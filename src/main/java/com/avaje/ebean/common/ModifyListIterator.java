@@ -14,66 +14,66 @@ import com.avaje.ebean.bean.BeanCollection;
  */
 class ModifyListIterator<E> implements ListIterator<E> {
 
-	private final BeanCollection<E> owner;
+  private final BeanCollection<E> owner;
 
-	private final ListIterator<E> it;
+  private final ListIterator<E> it;
 
-	private E last;
+  private E last;
 
-	/**
-	 * Create with an Owner that is notified of any additions or deletions.
-	 */
-	ModifyListIterator(BeanCollection<E> owner, ListIterator<E> it) {
-		this.owner = owner;
-		this.it = it;
-	}
+  /**
+   * Create with an Owner that is notified of any additions or deletions.
+   */
+  ModifyListIterator(BeanCollection<E> owner, ListIterator<E> it) {
+    this.owner = owner;
+    this.it = it;
+  }
 
-	public void add(E bean) {
-		owner.modifyAddition(bean);
-		last = null;
-		it.add(bean);
-	}
+  public void add(E bean) {
+    owner.modifyAddition(bean);
+    last = null;
+    it.add(bean);
+  }
 
-	public boolean hasNext() {
-		return it.hasNext();
-	}
+  public boolean hasNext() {
+    return it.hasNext();
+  }
 
-	public boolean hasPrevious() {
-		return it.hasPrevious();
-	}
+  public boolean hasPrevious() {
+    return it.hasPrevious();
+  }
 
-	public E next() {
-		last = it.next();
-		return last;
-	}
+  public E next() {
+    last = it.next();
+    return last;
+  }
 
-	public int nextIndex() {
-		return it.nextIndex();
-	}
+  public int nextIndex() {
+    return it.nextIndex();
+  }
 
-	public E previous() {
-		last = it.previous();
-		return last;
-	}
+  public E previous() {
+    last = it.previous();
+    return last;
+  }
 
-	public int previousIndex() {
-		return it.previousIndex();
-	}
+  public int previousIndex() {
+    return it.previousIndex();
+  }
 
-	public void remove() {
-		owner.modifyRemoval(last);
-		last = null;
-		it.remove();
-	}
+  public void remove() {
+    owner.modifyRemoval(last);
+    last = null;
+    it.remove();
+  }
 
-	public void set(E o) {
-		if (last == null) {
-			// in theory this is not allowed
-		} else {
-			owner.modifyRemoval(last);
-			owner.modifyAddition(o);
-		}
-		it.set(o);
-	}
+  public void set(E o) {
+    if (last == null) {
+      // in theory this is not allowed
+    } else {
+      owner.modifyRemoval(last);
+      owner.modifyAddition(o);
+    }
+    it.set(o);
+  }
 
 }

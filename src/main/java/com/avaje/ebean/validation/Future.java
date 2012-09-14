@@ -7,12 +7,12 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.FutureValidatorFactory;
 
-
 /**
- * Validate a Date, Timestamp or Calendar property as having to be in the future.
+ * Validate a Date, Timestamp or Calendar property as having to be in the
+ * future.
  */
 @ValidatorMeta(factory = FutureValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Future {
 

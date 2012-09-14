@@ -8,9 +8,8 @@ package com.avaje.ebean.config;
  */
 public interface EncryptDeployManager {
 
-    
-    /**
-     * Return true if the table column is encrypted.
-     */
-    public EncryptDeploy getEncryptDeploy(TableName table, String column);
+  /**
+   * Return true if the table column is encrypted.
+   */
+  public EncryptDeploy getEncryptDeploy(TableName table, String column);
 }

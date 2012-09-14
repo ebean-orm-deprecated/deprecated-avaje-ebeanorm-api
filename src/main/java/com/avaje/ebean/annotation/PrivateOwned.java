@@ -18,17 +18,17 @@ import java.lang.annotation.Target;
  * in that they are no longer associated/linked to their parent bean.
  * </p>
  */
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrivateOwned {
 
-    /**
-     * Set this to false if you don't want cascade REMOVE on this relationship.
-     * <p>
-     * That is, by default PrivateOwned implicitly adds a cascade REMOVE to the
-     * relationship and if you don't want that you need to set this to false.
-     * </p>
-     */
-    boolean cascadeRemove() default true;
+  /**
+   * Set this to false if you don't want cascade REMOVE on this relationship.
+   * <p>
+   * That is, by default PrivateOwned implicitly adds a cascade REMOVE to the
+   * relationship and if you don't want that you need to set this to false.
+   * </p>
+   */
+  boolean cascadeRemove() default true;
 
 };

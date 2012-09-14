@@ -218,7 +218,7 @@ public class ServerConfig {
   private DbEncrypt dbEncrypt;
 
   private LdapConfig ldapConfig;
-  
+
   private ServerCacheFactory serverCacheFactory;
 
   private ServerCacheManager serverCacheManager;
@@ -240,8 +240,7 @@ public class ServerConfig {
    * Set to false to require enhancement to be used. Defaults to true.
    */
   private boolean allowSubclassing = true;
-  
-  
+
   /**
    * Construct a Server Configuration for programmatically creating an
    * EbeanServer.
@@ -447,7 +446,7 @@ public class ServerConfig {
   public void setExternalTransactionManager(ExternalTransactionManager externalTransactionManager) {
     this.externalTransactionManager = externalTransactionManager;
   }
-  
+
   /**
    * Return the ServerCacheFactory.
    */
@@ -1187,7 +1186,6 @@ public class ServerConfig {
     this.updateChangesOnly = updateChangesOnly;
   }
 
-  
   /**
    * Set to false to require enhancement to be used. Defaults to true.
    */

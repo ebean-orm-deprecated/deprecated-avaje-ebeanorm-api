@@ -9,16 +9,16 @@ import java.lang.annotation.Target;
  * Enables you to specify a value to use to persist for an enum value.
  * 
  * <pre class="code">
- *     public enum Status {
- *         &#064;EnumValue(&quot;N&quot;)
- *         NEW,
- *         
- *         &#064;EnumValue(&quot;A&quot;)
- *         ACTIVE,
- *         
- *         &#064;EnumValue(&quot;I&quot;)
- *         INACTIVE,
- *     }
+ * public enum Status {
+ *   &#064;EnumValue(&quot;N&quot;)
+ *   NEW,
+ * 
+ *   &#064;EnumValue(&quot;A&quot;)
+ *   ACTIVE,
+ * 
+ *   &#064;EnumValue(&quot;I&quot;)
+ *   INACTIVE,
+ * }
  * 
  * </pre>
  * <p>
@@ -31,16 +31,16 @@ import java.lang.annotation.Target;
  * and fetched as strings.
  * </p>
  */
-@Target( { ElementType.FIELD })
+@Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnumValue {
 
-    /**
-     * Specify the value to persist for a specific enum value.
-     * <p>
-     * If all the values are parsable as Integers then Ebean will persist and
-     * fetch them as integers rather than strings.
-     * </p>
-     */
-    String value();
+  /**
+   * Specify the value to persist for a specific enum value.
+   * <p>
+   * If all the values are parsable as Integers then Ebean will persist and
+   * fetch them as integers rather than strings.
+   * </p>
+   */
+  String value();
 };

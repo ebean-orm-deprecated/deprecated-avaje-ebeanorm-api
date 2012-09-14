@@ -7,126 +7,126 @@ package com.avaje.ebean.config;
  */
 public final class TableName {
 
-	/** The catalog. */
-	private String catalog;
+  /** The catalog. */
+  private String catalog;
 
-	/** The schema. */
-	private String schema;
+  /** The schema. */
+  private String schema;
 
-	/** The name. */
-	private String name;
+  /** The name. */
+  private String name;
 
-	/**
-	 * Construct with the given catalog schema and table name.
-	 * <p>
-	 * Note the catalog and schema can be null.
-	 * </p>
-	 */
-	public TableName(String catalog, String schema, String name) {
-		super();
-		this.catalog = catalog != null ? catalog.trim() : null;
-		this.schema = schema != null ? schema.trim() : null;
-		this.name = name != null ? name.trim() : null;
-	}
+  /**
+   * Construct with the given catalog schema and table name.
+   * <p>
+   * Note the catalog and schema can be null.
+   * </p>
+   */
+  public TableName(String catalog, String schema, String name) {
+    super();
+    this.catalog = catalog != null ? catalog.trim() : null;
+    this.schema = schema != null ? schema.trim() : null;
+    this.name = name != null ? name.trim() : null;
+  }
 
-	/**
-	 * Construct splitting the qualifiedTableName potentially into catalog,
-	 * schema and name.
-	 * <p>
-	 * The qualifiedTableName can take the form of catalog.schema.tableName
-	 * and is split on the '.' period character. The catalog and schema are optional. 
-	 * </p>
-	 * 
-	 * @param qualifiedTableName
-	 *            the fully qualified table name using '.' between schema and
-	 *            table name etc (with catalog and schema optional).
-	 */
-	public TableName(String qualifiedTableName) {
-		String[] split = qualifiedTableName.split("\\.");
-		int len = split.length;
-		if (split.length > 3) {
-			String m = "Error splitting " + qualifiedTableName + ". Expecting at most 2 '.' characters";
-			throw new RuntimeException(m);
-		}
-		if (len == 3) {
-			this.catalog = split[0];
-		}
-		if (len >= 2) {
-			this.schema = split[len-2];
-		}
-		this.name = split[len-1];
-	}
+  /**
+   * Construct splitting the qualifiedTableName potentially into catalog, schema
+   * and name.
+   * <p>
+   * The qualifiedTableName can take the form of catalog.schema.tableName and is
+   * split on the '.' period character. The catalog and schema are optional.
+   * </p>
+   * 
+   * @param qualifiedTableName
+   *          the fully qualified table name using '.' between schema and table
+   *          name etc (with catalog and schema optional).
+   */
+  public TableName(String qualifiedTableName) {
+    String[] split = qualifiedTableName.split("\\.");
+    int len = split.length;
+    if (split.length > 3) {
+      String m = "Error splitting " + qualifiedTableName + ". Expecting at most 2 '.' characters";
+      throw new RuntimeException(m);
+    }
+    if (len == 3) {
+      this.catalog = split[0];
+    }
+    if (len >= 2) {
+      this.schema = split[len - 2];
+    }
+    this.name = split[len - 1];
+  }
 
-	public String toString() {
-		return getQualifiedName();
-	}
+  public String toString() {
+    return getQualifiedName();
+  }
 
-	/**
-	 * Gets the catalog.
-	 * 
-	 * @return the catalog
-	 */
-	public String getCatalog() {
-		return catalog;
-	}
+  /**
+   * Gets the catalog.
+   * 
+   * @return the catalog
+   */
+  public String getCatalog() {
+    return catalog;
+  }
 
-	/**
-	 * Gets the schema.
-	 * 
-	 * @return the schema
-	 */
-	public String getSchema() {
-		return schema;
-	}
+  /**
+   * Gets the schema.
+   * 
+   * @return the schema
+   */
+  public String getSchema() {
+    return schema;
+  }
 
-	/**
-	 * Gets the name.
-	 * 
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+  /**
+   * Gets the name.
+   * 
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * Returns the qualified name in the form catalog.schema.name.
-	 * <p>
-	 * Catalog and schema are optional.
-	 * </p>
-	 * 
-	 * @return the qualified name
-	 */
-	public String getQualifiedName() {
-		
-		StringBuilder buffer = new StringBuilder();
+  /**
+   * Returns the qualified name in the form catalog.schema.name.
+   * <p>
+   * Catalog and schema are optional.
+   * </p>
+   * 
+   * @return the qualified name
+   */
+  public String getQualifiedName() {
 
-		// Add catalog
-		if (catalog != null) {
-			buffer.append(catalog);
-		}
+    StringBuilder buffer = new StringBuilder();
 
-		// Add schema
-		if (schema != null) {
-			if (buffer.length() > 0) {
-				buffer.append(".");
-			}
-			buffer.append(schema);
-		}
+    // Add catalog
+    if (catalog != null) {
+      buffer.append(catalog);
+    }
 
-		if (buffer.length() > 0) {
-			buffer.append(".");
-		}
-		buffer.append(name);
+    // Add schema
+    if (schema != null) {
+      if (buffer.length() > 0) {
+        buffer.append(".");
+      }
+      buffer.append(schema);
+    }
 
-		return buffer.toString();
-	}
+    if (buffer.length() > 0) {
+      buffer.append(".");
+    }
+    buffer.append(name);
 
-	/**
-	 * Checks if is table name is valid i.e. it has at least a name.
-	 * 
-	 * @return true, if is valid
-	 */
-	public boolean isValid() {
-		return name != null && name.length() > 0;
-	}
+    return buffer.toString();
+  }
+
+  /**
+   * Checks if is table name is valid i.e. it has at least a name.
+   * 
+   * @return true, if is valid
+   */
+  public boolean isValid() {
+    return name != null && name.length() > 0;
+  }
 }

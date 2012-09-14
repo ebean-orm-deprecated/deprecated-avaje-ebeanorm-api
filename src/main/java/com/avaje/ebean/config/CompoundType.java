@@ -28,19 +28,19 @@ package com.avaje.ebean.config;
  * @author rbygrave
  * 
  * @param <V>
- *            The type of the Value Object
+ *          The type of the Value Object
  * 
  * @see ScalarTypeConverter
  */
 public interface CompoundType<V> {
 
-    /**
-     * Create an instance of the compound type given its property values.
-     */
-    public V create(Object[] propertyValues);
+  /**
+   * Create an instance of the compound type given its property values.
+   */
+  public V create(Object[] propertyValues);
 
-    /**
-     * Return the properties in the order they appear in the constructor.
-     */
-    public CompoundTypeProperty<V, ?>[] getProperties();
+  /**
+   * Return the properties in the order they appear in the constructor.
+   */
+  public CompoundTypeProperty<V, ?>[] getProperties();
 }

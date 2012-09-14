@@ -13,13 +13,12 @@ import java.sql.PreparedStatement;
  */
 public interface PstmtDelegate {
 
-	/**
-	 * Unwrap the PreparedStatement to get the specific underlying
-	 * implementation.
-	 * 
-	 * @param pstmt
-	 *            the PreparedStatement coming out of the connection pool
-	 * @return the underlying PreparedStatement
-	 */
-	public PreparedStatement unwrap(PreparedStatement pstmt);
+  /**
+   * Unwrap the PreparedStatement to get the specific underlying implementation.
+   * 
+   * @param pstmt
+   *          the PreparedStatement coming out of the connection pool
+   * @return the underlying PreparedStatement
+   */
+  public PreparedStatement unwrap(PreparedStatement pstmt);
 }

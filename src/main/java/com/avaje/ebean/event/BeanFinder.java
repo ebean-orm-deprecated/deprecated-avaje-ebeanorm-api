@@ -2,8 +2,6 @@ package com.avaje.ebean.event;
 
 import com.avaje.ebean.bean.BeanCollection;
 
-
-
 /**
  * Used to override the finding implementation for a bean.
  * <p>
@@ -12,27 +10,25 @@ import com.avaje.ebean.bean.BeanCollection;
  * returning that.
  * </p>
  * <p>
- * There are a number of internal BeanFinders in Ebean to return meta
- * data from Ebean at runtime such as query execution statistics etc.
- * See the beans in com.avaje.ebean.meta and finders in com.avaje.ebean.server.meta.
+ * There are a number of internal BeanFinders in Ebean to return meta data from
+ * Ebean at runtime such as query execution statistics etc. See the beans in
+ * com.avaje.ebean.meta and finders in com.avaje.ebean.server.meta.
  * </p>
  */
 public interface BeanFinder<T> {
-    
-    /**
-     * Find a bean using its id or unique predicate.
-     */
-    public T find(BeanQueryRequest<T> request);
 
-    /**
-     * Return a List, Set or Map for the given find request.
-     * <p>
-     * Note the returning object is cast to a List Set or Map so you do need to
-     * get the return type right.
-     * </p>
-     */
-    public BeanCollection<T> findMany(BeanQueryRequest<T> request);
-    
-    
+  /**
+   * Find a bean using its id or unique predicate.
+   */
+  public T find(BeanQueryRequest<T> request);
+
+  /**
+   * Return a List, Set or Map for the given find request.
+   * <p>
+   * Note the returning object is cast to a List Set or Map so you do need to
+   * get the return type right.
+   * </p>
+   */
+  public BeanCollection<T> findMany(BeanQueryRequest<T> request);
 
 }

@@ -11,8 +11,8 @@ package com.avaje.ebean.config;
  */
 public interface EncryptKey {
 
-    /**
-     * Return the string key value.
-     */
-    public String getStringValue();
+  /**
+   * Return the string key value.
+   */
+  public String getStringValue();
 }

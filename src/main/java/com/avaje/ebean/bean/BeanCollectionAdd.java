@@ -9,8 +9,8 @@ package com.avaje.ebean.bean;
  */
 public interface BeanCollectionAdd {
 
-	/**
-	 * Add a loaded bean to the collection.
-	 */
-	public void addBean(Object bean);
+  /**
+   * Add a loaded bean to the collection.
+   */
+  public void addBean(Object bean);
 }

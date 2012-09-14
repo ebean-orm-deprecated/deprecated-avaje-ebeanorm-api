@@ -3,8 +3,8 @@ package com.avaje.ebean;
 import java.util.concurrent.Future;
 
 /**
- * Represents the result of a background query execution for the
- * total row count for a query.
+ * Represents the result of a background query execution for the total row count
+ * for a query.
  * <p>
  * It extends the java.util.concurrent.Future.
  * </p>

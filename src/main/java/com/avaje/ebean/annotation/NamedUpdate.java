@@ -13,25 +13,25 @@ import java.lang.annotation.Target;
  * expressed as bean types and bean properties.
  * </p>
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NamedUpdate {
 
-	/**
-	 * The name of the update.
-	 */
-	String name();
+  /**
+   * The name of the update.
+   */
+  String name();
 
-	/**
-	 * The insert, update or delete statement.
-	 */
-	String update();
+  /**
+   * The insert, update or delete statement.
+   */
+  String update();
 
-	/**
-	 * Set this to false if you do not want the cache to be notified. If true
-	 * the cache will invalidate appropriate objects from the cache (after a
-	 * successful transaction commit).
-	 */
-	boolean notifyCache() default true;
+  /**
+   * Set this to false if you do not want the cache to be notified. If true the
+   * cache will invalidate appropriate objects from the cache (after a
+   * successful transaction commit).
+   */
+  boolean notifyCache() default true;
 
 };

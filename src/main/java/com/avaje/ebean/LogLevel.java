@@ -8,19 +8,18 @@ package com.avaje.ebean;
  */
 public enum LogLevel {
 
-    /**
-     * No logging.
-     */
-    NONE,
+  /**
+   * No logging.
+   */
+  NONE,
 
-    /**
-     * Log only a summary level.
-     */
-    SUMMARY,
+  /**
+   * Log only a summary level.
+   */
+  SUMMARY,
 
-    /**
-     * Log generated SQL/DML and binding variables.
-     */
-    SQL
+  /**
+   * Log generated SQL/DML and binding variables.
+   */
+  SQL
 }
-

@@ -53,38 +53,38 @@ import java.lang.annotation.Target;
  * 
  * @see EnumValue
  */
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnumMapping {
 
-	/**
-	 * A comma delimited list of name=value pairs.
-	 * <p>
-	 * e.g. "ACTIVE=A, INACTIVE=I, NEW=N".
-	 * </p>
-	 * <p>
-	 * Where ACTIVE, INACTIVE and NEW are the enumeration values and "A", "I"
-	 * and "N" are the database values.
-	 * </p>
-	 * <p>
-	 * This is not really an optimal approach so if you have a better one I'm
-	 * all ears - thanks.
-	 * </p>
-	 */
-	String nameValuePairs();
+  /**
+   * A comma delimited list of name=value pairs.
+   * <p>
+   * e.g. "ACTIVE=A, INACTIVE=I, NEW=N".
+   * </p>
+   * <p>
+   * Where ACTIVE, INACTIVE and NEW are the enumeration values and "A", "I" and
+   * "N" are the database values.
+   * </p>
+   * <p>
+   * This is not really an optimal approach so if you have a better one I'm all
+   * ears - thanks.
+   * </p>
+   */
+  String nameValuePairs();
 
-	/**
-	 * Defaults to mapping values to database VARCHAR type. If this is set to
-	 * true then the values will be converted to INTEGER and mapped to the
-	 * database integer type.
-	 * <p>
-	 * e.g. "ACTIVE=1, INACTIVE=0, NEW=2".
-	 * </p>
-	 */
-	boolean integerType() default false;
-	
-	/**
-	 * The length of DB column if mapping to string values.
-	 */
-	int length() default 0;
+  /**
+   * Defaults to mapping values to database VARCHAR type. If this is set to true
+   * then the values will be converted to INTEGER and mapped to the database
+   * integer type.
+   * <p>
+   * e.g. "ACTIVE=1, INACTIVE=0, NEW=2".
+   * </p>
+   */
+  boolean integerType() default false;
+
+  /**
+   * The length of DB column if mapping to string values.
+   */
+  int length() default 0;
 };

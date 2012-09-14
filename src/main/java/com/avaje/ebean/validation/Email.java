@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 import com.avaje.ebean.validation.factory.EmailValidatorFactory;
 
-
 /**
  * Validate property as email address.
  * <p>
@@ -16,7 +15,7 @@ import com.avaje.ebean.validation.factory.EmailValidatorFactory;
  * </p>
  */
 @ValidatorMeta(factory = EmailValidatorFactory.class)
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Email {
 

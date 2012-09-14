@@ -9,8 +9,8 @@ import javax.naming.directory.DirContext;
  */
 public interface LdapContextFactory {
 
-    /**
-     * Create a LDAP context for searching and persisting to an LDAP data store. 
-     */
-    public DirContext createContext();
+  /**
+   * Create a LDAP context for searching and persisting to an LDAP data store.
+   */
+  public DirContext createContext();
 }
