@@ -1400,18 +1400,41 @@ public class ServerConfig {
   }
 
   /**
+   * loads the data source settings to preserve existing behaviour. IMHO, if someone has set the datasource config already,
+   * they don't want the settings to be reloaded and reset. This allows a descending class to override this behaviour and prevent it
+   * from happening.
+   *
+   * @param p - The defined property source passed to load settings
+   */
+  protected void loadDataSourceSettings(PropertySource p) {
+    dataSourceConfig.loadSettings(p.getServerName());
+  }
+
+  /**
+   * This is broken out for the same reason as above - preserve existing behaviour but let it be overridden.
+   *
+   * @param p
+   */
+  protected void loadAutofetchConfig(PropertySource p) {
+    autofetchConfig.loadSettings(p);
+  }
+
+  /**
    * Load the configuration settings from the properties file.
    */
-  private void loadSettings(ConfigPropertyMap p) {
+  protected void loadSettings(PropertySource p) {
 
     if (autofetchConfig == null) {
       autofetchConfig = new AutofetchConfig();
     }
-    autofetchConfig.loadSettings(p);
+
+    loadAutofetchConfig(p);
+
     if (dataSourceConfig == null) {
       dataSourceConfig = new DataSourceConfig();
     }
-    dataSourceConfig.loadSettings(p.getServerName());
+
+    loadDataSourceSettings(p);
 
     if (ldapConfig == null) {
       LdapContextFactory ctxFact = createInstance(p, LdapContextFactory.class, "ldapContextFactory");
@@ -1480,7 +1503,7 @@ public class ServerConfig {
     classes = getClasses(p);
   }
 
-  private LogLevel getLogLevelValue(ConfigPropertyMap p) {
+  private LogLevel getLogLevelValue(PropertySource p) {
     // logging.level preferred but others parameters will work
     String logValue = p.get("logging", "NONE");
     logValue = p.get("log.level", logValue);
