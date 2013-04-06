@@ -228,7 +228,7 @@ public class AutofetchConfig {
   /**
    * Load the settings from the properties file.
    */
-  public void loadSettings(ConfigPropertyMap p) {
+  public void loadSettings(GlobalProperties.PropertySource p) {
 
     logDirectory = p.get("autofetch.logDirectory", null);
     queryTuning = p.getBoolean("autofetch.querytuning", false);

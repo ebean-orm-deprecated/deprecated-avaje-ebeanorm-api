@@ -173,4 +173,39 @@ public final class GlobalProperties {
     public <T extends Enum<T>> T getEnum(Class<T> enumType, String key, T defaultValue);
 
   }
+
+  public static class DelegatedGlobalPropertySource implements PropertySource {
+
+    private String serverName;
+
+    public DelegatedGlobalPropertySource(String serverName) {
+      this.serverName = serverName;
+    }
+
+    @Override
+    public String getServerName() {
+      return serverName;
+    }
+
+    @Override
+    public String get(String key, String defaultValue) {
+      return GlobalProperties.get(key, defaultValue);
+    }
+
+    @Override
+    public int getInt(String key, int defaultValue) {
+      return GlobalProperties.getInt(key, defaultValue);
+    }
+
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+      return GlobalProperties.getBoolean(key, defaultValue);
+    }
+
+    @Override
+    public <T extends Enum<T>> T getEnum(Class<T> enumType, String key, T defaultValue) {
+      String level = get(key, defaultValue.name());
+      return Enum.valueOf(enumType, level.toUpperCase());
+    }
+  }
 }
