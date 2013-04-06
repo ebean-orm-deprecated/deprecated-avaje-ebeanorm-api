@@ -354,44 +354,46 @@ public class DataSourceConfig {
     this.customProperties = customProperties;
   }
 
+  public void loadSettings(String serverName) {
+    loadSettingsCustomPrefix("datasource." + serverName + ".", new GlobalProperties.DelegatedGlobalPropertySource(serverName));
+  }
+
   /**
    * Load the settings from ebean.properties.
    */
-  public void loadSettings(String serverName) {
+  public void loadSettingsCustomPrefix(String prefix, GlobalProperties.PropertySource properties) {
 
-    String prefix = "datasource." + serverName + ".";
-
-    this.username = GlobalProperties.get(prefix + "username", null);
-    this.password = GlobalProperties.get(prefix + "password", null);
+    this.username = properties.get(prefix + "username", null);
+    this.password = properties.get(prefix + "password", null);
 
     String v;
 
-    v = GlobalProperties.get(prefix + "databaseDriver", null);
-    this.driver = GlobalProperties.get(prefix + "driver", v);
+    v = properties.get(prefix + "databaseDriver", null);
+    this.driver = properties.get(prefix + "driver", v);
 
-    v = GlobalProperties.get(prefix + "databaseUrl", null);
-    this.url = GlobalProperties.get(prefix + "url", v);
+    v = properties.get(prefix + "databaseUrl", null);
+    this.url = properties.get(prefix + "url", v);
 
-    this.captureStackTrace = GlobalProperties.getBoolean(prefix + "captureStackTrace", false);
-    this.maxStackTraceSize = GlobalProperties.getInt(prefix + "maxStackTraceSize", 5);
-    this.leakTimeMinutes = GlobalProperties.getInt(prefix + "leakTimeMinutes", 30);
-    this.maxInactiveTimeSecs = GlobalProperties.getInt(prefix + "maxInactiveTimeSecs", 900);
+    this.captureStackTrace = properties.getBoolean(prefix + "captureStackTrace", false);
+    this.maxStackTraceSize = properties.getInt(prefix + "maxStackTraceSize", 5);
+    this.leakTimeMinutes = properties.getInt(prefix + "leakTimeMinutes", 30);
+    this.maxInactiveTimeSecs = properties.getInt(prefix + "maxInactiveTimeSecs", 900);
 
-    this.minConnections = GlobalProperties.getInt(prefix + "minConnections", 0);
-    this.maxConnections = GlobalProperties.getInt(prefix + "maxConnections", 20);
-    this.pstmtCacheSize = GlobalProperties.getInt(prefix + "pstmtCacheSize", 20);
-    this.cstmtCacheSize = GlobalProperties.getInt(prefix + "cstmtCacheSize", 20);
+    this.minConnections = properties.getInt(prefix + "minConnections", 0);
+    this.maxConnections = properties.getInt(prefix + "maxConnections", 20);
+    this.pstmtCacheSize = properties.getInt(prefix + "pstmtCacheSize", 20);
+    this.cstmtCacheSize = properties.getInt(prefix + "cstmtCacheSize", 20);
 
-    this.waitTimeoutMillis = GlobalProperties.getInt(prefix + "waitTimeout", 1000);
+    this.waitTimeoutMillis = properties.getInt(prefix + "waitTimeout", 1000);
 
-    this.heartbeatSql = GlobalProperties.get(prefix + "heartbeatSql", null);
-    this.poolListener = GlobalProperties.get(prefix + "poolListener", null);
-    this.offline = GlobalProperties.getBoolean(prefix + "offline", false);
+    this.heartbeatSql = properties.get(prefix + "heartbeatSql", null);
+    this.poolListener = properties.get(prefix + "poolListener", null);
+    this.offline = properties.getBoolean(prefix + "offline", false);
 
-    String isoLevel = GlobalProperties.get(prefix + "isolationlevel", "READ_COMMITTED");
+    String isoLevel = properties.get(prefix + "isolationlevel", "READ_COMMITTED");
     this.isolationLevel = getTransactionIsolationLevel(isoLevel);
 
-    String customProperties = GlobalProperties.get(prefix + "customProperties", null);
+    String customProperties = properties.get(prefix + "customProperties", null);
     if (customProperties != null && customProperties.length() > 0) {
       Map<String, String> custProps = StringHelper.delimitedToMap(customProperties, ";", "=");
       this.customProperties = custProps;
