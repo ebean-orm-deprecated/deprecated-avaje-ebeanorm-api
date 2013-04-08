@@ -15,8 +15,6 @@ import com.avaje.ebean.cache.ServerCacheManager;
 import com.avaje.ebean.config.GlobalProperties.PropertySource;
 import com.avaje.ebean.config.dbplatform.DatabasePlatform;
 import com.avaje.ebean.config.dbplatform.DbEncrypt;
-import com.avaje.ebean.config.ldap.LdapConfig;
-import com.avaje.ebean.config.ldap.LdapContextFactory;
 import com.avaje.ebean.event.BeanPersistController;
 import com.avaje.ebean.event.BeanPersistListener;
 import com.avaje.ebean.event.BeanQueryAdapter;
@@ -216,8 +214,6 @@ public class ServerConfig {
   private Encryptor encryptor;
 
   private DbEncrypt dbEncrypt;
-
-  private LdapConfig ldapConfig;
 
   private ServerCacheFactory serverCacheFactory;
 
@@ -1033,20 +1029,6 @@ public class ServerConfig {
   }
 
   /**
-   * Return the LDAP configuration.
-   */
-  public LdapConfig getLdapConfig() {
-    return ldapConfig;
-  }
-
-  /**
-   * Set the LDAP configuration.
-   */
-  public void setLdapConfig(LdapConfig ldapConfig) {
-    this.ldapConfig = ldapConfig;
-  }
-
-  /**
    * Programmatically add classes (typically entities) that this server should
    * use.
    * <p>
@@ -1435,15 +1417,6 @@ public class ServerConfig {
     }
 
     loadDataSourceSettings(p);
-
-    if (ldapConfig == null) {
-      LdapContextFactory ctxFact = createInstance(p, LdapContextFactory.class, "ldapContextFactory");
-      if (ctxFact != null) {
-        ldapConfig = new LdapConfig();
-        ldapConfig.setContextFactory(ctxFact);
-        ldapConfig.setVanillaMode(p.getBoolean("ldapVanillaMode", false));
-      }
-    }
 
     useJtaTransactionManager = p.getBoolean("useJtaTransactionManager", false);
     namingConvention = createNamingConvention(p);
