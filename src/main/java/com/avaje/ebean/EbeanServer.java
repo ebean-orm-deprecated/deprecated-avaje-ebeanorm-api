@@ -132,30 +132,6 @@ public interface EbeanServer {
   public Map<String, ValuePair> diff(Object a, Object b);
 
   /**
-   * Validate an entity bean.
-   * <p>
-   * The returned InvalidValue holds a tree of InvalidValue's. Typically you
-   * will use {@link InvalidValue#getErrors()}) to get a flat list of all the
-   * validation errors.
-   * </p>
-   */
-  public InvalidValue validate(Object bean);
-
-  /**
-   * Validate a single property on an entity bean.
-   * 
-   * @param bean
-   *          the entity bean that owns the property.
-   * @param propertyName
-   *          the name of the property to validate.
-   * @param value
-   *          if the value is null then the value from the bean is used to
-   *          perform the validation.
-   * @return the validation errors or an empty array.
-   */
-  public InvalidValue[] validate(Object bean, String propertyName, Object value);
-
-  /**
    * Create a new instance of T that is an EntityBean (for subclassing).
    * <p>
    * Note that if you are using enhancement (rather than subclassing) then you

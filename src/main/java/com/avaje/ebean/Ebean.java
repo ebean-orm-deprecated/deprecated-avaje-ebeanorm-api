@@ -416,48 +416,6 @@ public final class Ebean {
   }
 
   /**
-   * Validate a bean.
-   * <p>
-   * This will validate all of the properties on the bean in a recursive
-   * fashion. Typically if cascade save or delete is on then the validation will
-   * cascade those same associations.
-   * </p>
-   * <p>
-   * If no errors are detected then this returns null. Otherwise the returned
-   * InvalidValue holds the errors from all the rules tested. Use
-   * {@link InvalidValue#getErrors()} to get the list of errors that occurred.
-   * </p>
-   * 
-   * @return a InvalidValue holding the errors or null
-   */
-  public static InvalidValue validate(Object bean) {
-    return serverMgr.getPrimaryServer().validate(bean);
-  }
-
-  /**
-   * Validate a bean property.
-   * <p>
-   * If value passed in is null, then the property value from the bean is used.
-   * </p>
-   * <p>
-   * If no errors are detected an empty array is returned.
-   * </p>
-   * 
-   * @param bean
-   *          the bean used if value is null
-   * @param propertyName
-   *          the property to validate
-   * @param value
-   *          the value to validate. If this is null then the value from the
-   *          bean is used to validate.
-   * @return a InvalidValue holding the errors for this property (returns an
-   *         empty array if there are no errors).
-   */
-  public static InvalidValue[] validate(Object bean, String propertyName, Object value) {
-    return serverMgr.getPrimaryServer().validate(bean, propertyName, value);
-  }
-
-  /**
    * Return a map of the differences between two objects of the same type.
    * <p>
    * When null is passed in for b, then the 'OldValues' of a is used for the

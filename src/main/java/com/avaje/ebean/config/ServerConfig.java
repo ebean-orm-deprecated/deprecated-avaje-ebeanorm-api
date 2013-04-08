@@ -97,11 +97,6 @@ public class ServerConfig {
   private boolean defaultServer;
 
   /**
-   * The validate on save.
-   */
-  private boolean validateOnSave = true;
-
-  /**
    * List of interesting classes such as entities, embedded, ScalarTypes,
    * Listeners, Finders, Controllers etc.
    */
@@ -519,20 +514,6 @@ public class ServerConfig {
    */
   public void setVanillaRefMode(boolean vanillaRefMode) {
     this.vanillaRefMode = vanillaRefMode;
-  }
-
-  /**
-   * Return true if a bean should be validated when it is saved.
-   */
-  public boolean isValidateOnSave() {
-    return validateOnSave;
-  }
-
-  /**
-   * Set whether validation should run when a bean is saved.
-   */
-  public void setValidateOnSave(boolean validateOnSave) {
-    this.validateOnSave = validateOnSave;
   }
 
   /**
@@ -1439,7 +1420,6 @@ public class ServerConfig {
     }
 
     allowSubclassing = p.getBoolean("allowSubclassing", true);
-    validateOnSave = p.getBoolean("validateOnSave", true);
     vanillaMode = p.getBoolean("vanillaMode", false);
     vanillaRefMode = p.getBoolean("vanillaRefMode", false);
     updateChangesOnly = p.getBoolean("updateChangesOnly", true);
