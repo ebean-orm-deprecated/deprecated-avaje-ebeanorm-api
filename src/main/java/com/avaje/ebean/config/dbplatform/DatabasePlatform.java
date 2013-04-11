@@ -1,13 +1,13 @@
 package com.avaje.ebean.config.dbplatform;
 
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import com.avaje.ebean.BackgroundExecutor;
 import com.avaje.ebean.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Database platform specific settings.
@@ -15,7 +15,7 @@ import com.avaje.ebean.Query;
 public class DatabasePlatform {
 
   /** The Constant logger. */
-  private static final Logger logger = Logger.getLogger(DatabasePlatform.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(DatabasePlatform.class);
 
   /** The open quote used by quoted identifiers. */
   protected String openQuote = "\"";
@@ -247,7 +247,7 @@ public class DatabasePlatform {
           return quotedName;
 
         } else {
-          logger.log(Level.SEVERE, "Missing backquote on [" + dbName + "]");
+          logger.error("Missing backquote on [" + dbName + "]");
         }
       }
     }
@@ -271,9 +271,7 @@ public class DatabasePlatform {
 
   protected String withForUpdate(String sql) {
     // silently assume the database does not support the "for update" clause.
-    if (logger.isLoggable(Level.INFO)) {
-      logger.log(Level.INFO, "it seems your database does not support the 'for update' clause");
-    }
+    logger.info("it seems your database does not support the 'for update' clause");
 
     return sql;
   }

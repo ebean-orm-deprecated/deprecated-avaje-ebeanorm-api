@@ -1,13 +1,14 @@
 package com.avaje.ebean.validation.factory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Creates NotEmpty validators depending on the type.
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class NotEmptyValidatorFactory implements ValidatorFactory {
 
-  static final Logger logger = Logger.getLogger(NotEmptyValidatorFactory.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(NotEmptyValidatorFactory.class);
 
   static final Validator STRING = new StringNotEmptyValidator();
 
@@ -48,8 +49,7 @@ public class NotEmptyValidatorFactory implements ValidatorFactory {
       return MAP;
     }
 
-    String msg = "@NotEmpty not assignable to type " + type;
-    logger.log(Level.SEVERE, msg);
+    logger.error("@NotEmpty not assignable to type " + type);
     return null;
   }
 

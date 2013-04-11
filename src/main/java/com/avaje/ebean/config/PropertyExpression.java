@@ -1,6 +1,7 @@
 package com.avaje.ebean.config;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,7 +17,7 @@ import javax.naming.NamingException;
  */
 final class PropertyExpression {
 
-  private static final Logger logger = Logger.getLogger(PropertyExpression.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(PropertyExpression.class);
 
   /**
    * Prefix for looking up JNDI Environment variable.
@@ -90,7 +91,7 @@ final class PropertyExpression {
       // in which properties are being set/loaded. You can use
       // GlobalProperties.evaluateExpressions() to get any unresolved
       // expressions to be evaluated
-      logger.fine("Unable to evaluate expression [" + exp + "]");
+      logger.debug("Unable to evaluate expression [" + exp + "]");
       return null;
     }
   }

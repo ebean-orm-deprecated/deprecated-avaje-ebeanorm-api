@@ -1,5 +1,8 @@
 package com.avaje.ebean.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +12,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 
@@ -18,7 +20,7 @@ import javax.servlet.ServletContext;
  */
 final class PropertyMapLoader {
 
-  private static Logger logger = Logger.getLogger(PropertyMapLoader.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(PropertyMapLoader.class);
 
   private static ServletContext servletContext;
 
@@ -49,7 +51,7 @@ final class PropertyMapLoader {
 
     InputStream is = findInputStream(fileName);
     if (is == null) {
-      logger.severe(fileName + " not found");
+      logger.error(fileName + " not found");
       return p;
     } else {
       return load(p, is);
@@ -100,10 +102,10 @@ final class PropertyMapLoader {
       otherProps = otherProps.replace("\\", "/");
       InputStream is = findInputStream(otherProps);
       if (is != null) {
-        logger.fine("loading properties from " + otherProps);
+        logger.debug("loading properties from " + otherProps);
         load(p, is);
       } else {
-        logger.severe("load.properties " + otherProps + " not found.");
+        logger.error("load.properties " + otherProps + " not found.");
       }
     }
 
@@ -120,13 +122,13 @@ final class PropertyMapLoader {
     }
 
     if (servletContext == null) {
-      logger.fine("No servletContext so not looking in WEB-INF for " + fileName);
+      logger.debug("No servletContext so not looking in WEB-INF for " + fileName);
 
     } else {
       // first look in WEB-INF ...
       InputStream in = servletContext.getResourceAsStream("/WEB-INF/" + fileName);
       if (in != null) {
-        logger.fine(fileName + " found in WEB-INF");
+        logger.debug(fileName + " found in WEB-INF");
         return in;
       }
     }
@@ -135,12 +137,12 @@ final class PropertyMapLoader {
       File f = new File(fileName);
 
       if (f.exists()) {
-        logger.fine(fileName + " found in file system");
+        logger.debug(fileName + " found in file system");
         return new FileInputStream(f);
       } else {
         InputStream in = findInClassPath(fileName);
         if (in != null) {
-          logger.fine(fileName + " found in classpath");
+          logger.debug(fileName + " found in classpath");
         }
         return in;
       }
