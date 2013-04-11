@@ -1,9 +1,9 @@
 package com.avaje.ebean.text.csv;
 
-import java.util.logging.Logger;
-
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides the default implementation of CsvCallback.
@@ -22,7 +22,7 @@ import com.avaje.ebean.Transaction;
  */
 public class DefaultCsvCallback<T> implements CsvCallback<T> {
 
-  private static final Logger logger = Logger.getLogger(DefaultCsvCallback.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(DefaultCsvCallback.class);
 
   /**
    * The transaction to use (if not using CsvCallback).

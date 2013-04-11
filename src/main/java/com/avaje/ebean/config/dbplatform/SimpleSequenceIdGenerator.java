@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 import javax.sql.DataSource;
 
 import com.avaje.ebean.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A very simple Database sequence based IdGenerator.
@@ -20,7 +20,7 @@ import com.avaje.ebean.Transaction;
  */
 public class SimpleSequenceIdGenerator implements IdGenerator {
 
-  private static final Logger logger = Logger.getLogger(SimpleSequenceIdGenerator.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(SimpleSequenceIdGenerator.class);
 
   private final String sql;
 
@@ -85,21 +85,21 @@ public class SimpleSequenceIdGenerator implements IdGenerator {
         rset.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing ResultSet", e);
+      logger.error("Error closing ResultSet", e);
     }
     try {
       if (pstmt != null) {
         pstmt.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing PreparedStatement", e);
+      logger.error("Error closing PreparedStatement", e);
     }
     try {
       if (c != null) {
         c.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing Connection", e);
+      logger.error("Error closing Connection", e);
     }
   }
 
