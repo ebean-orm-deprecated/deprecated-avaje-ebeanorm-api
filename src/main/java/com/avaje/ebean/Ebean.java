@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
@@ -18,6 +17,8 @@ import com.avaje.ebean.config.GlobalProperties;
 import com.avaje.ebean.config.ServerConfig;
 import com.avaje.ebean.text.csv.CsvReader;
 import com.avaje.ebean.text.json.JsonContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This Ebean object is effectively a singleton that holds a map of registered
@@ -113,8 +114,7 @@ import com.avaje.ebean.text.json.JsonContext;
  * </pre>
  */
 public final class Ebean {
-
-  private static final Logger logger = Logger.getLogger(Ebean.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(Ebean.class);
 
   /**
    * Manages creation and cache of EbeanServers.
@@ -152,12 +152,12 @@ public final class Ebean {
       if (GlobalProperties.isSkipPrimaryServer()) {
         // primary server being created by EbeanServerFactory
         // ... so we should not try and create it here
-        logger.fine("GlobalProperties.isSkipPrimaryServer()");
+        logger.debug("GlobalProperties.isSkipPrimaryServer()");
 
       } else {
         // look to see if there is a default server defined
         String primaryName = getPrimaryServerName();
-        logger.fine("primaryName:" + primaryName);
+        logger.debug("primaryName:" + primaryName);
         if (primaryName != null && primaryName.trim().length() > 0) {
           primaryServer = getWithCreate(primaryName.trim());
         }
@@ -219,7 +219,7 @@ public final class Ebean {
         EbeanServer existingServer = syncMap.put(server.getName(), server);
         if (existingServer != null) {
           String msg = "Existing EbeanServer [" + server.getName() + "] is being replaced?";
-          logger.warning(msg);
+          logger.warn(msg);
         }
 
         if (isPrimaryServer) {

@@ -950,6 +950,7 @@ public class ServerConfig {
    * transaction details to separate transaction log files.
    * </p>
    */
+  @Deprecated
   public boolean isLoggingToJavaLogger() {
     return loggingToJavaLogger;
   }
@@ -959,6 +960,7 @@ public class ServerConfig {
    * java.util.logging.Logger to log the statements and bind variables etc
    * rather than the default one which creates separate transaction log files.
    */
+  @Deprecated
   public void setLoggingToJavaLogger(boolean transactionLogToJavaLogger) {
     this.loggingToJavaLogger = transactionLogToJavaLogger;
   }

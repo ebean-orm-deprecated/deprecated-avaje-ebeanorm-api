@@ -1,11 +1,11 @@
 package com.avaje.ebean.config;
 
-import java.util.logging.Logger;
-
 import javax.persistence.Inheritance;
 import javax.persistence.Table;
 
 import com.avaje.ebean.config.dbplatform.DatabasePlatform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides some base implementation for NamingConventions.
@@ -15,7 +15,7 @@ import com.avaje.ebean.config.dbplatform.DatabasePlatform;
 public abstract class AbstractNamingConvention implements NamingConvention {
 
   /** The Constant logger. */
-  private static final Logger logger = Logger.getLogger(AbstractNamingConvention.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(AbstractNamingConvention.class);
 
   /** The Constant DEFAULT_SEQ_FORMAT. */
   public static final String DEFAULT_SEQ_FORMAT = "{table}_seq";
@@ -73,7 +73,7 @@ public abstract class AbstractNamingConvention implements NamingConvention {
     this.databasePlatform = databasePlatform;
     this.maxConstraintNameLength = databasePlatform.getDbDdlSyntax().getMaxConstraintNameLength();
 
-    logger.finer("Using maxConstraintNameLength of " + maxConstraintNameLength);
+    logger.trace("Using maxConstraintNameLength of " + maxConstraintNameLength);
   }
 
   public String getSequenceName(String tableName, String pkColumn) {

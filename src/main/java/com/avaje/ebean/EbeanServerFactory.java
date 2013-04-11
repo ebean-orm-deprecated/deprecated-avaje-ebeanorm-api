@@ -1,14 +1,13 @@
 package com.avaje.ebean;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.persistence.PersistenceException;
 
 import com.avaje.ebean.common.BootupEbeanManager;
 import com.avaje.ebean.config.GlobalProperties;
 import com.avaje.ebean.config.ServerConfig;
 import com.avaje.ebean.util.ClassUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Creates EbeanServer instances.
@@ -33,7 +32,7 @@ import com.avaje.ebean.util.ClassUtil;
  */
 public class EbeanServerFactory {
 
-  private static final Logger logger = Logger.getLogger(EbeanServerFactory.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(EbeanServerFactory.class);
 
   private static BootupEbeanManager serverFactory = createServerFactory();
 
@@ -81,12 +80,12 @@ public class EbeanServerFactory {
         // perhaps useful to delay the startup to give time to
         // attach a debugger when running in a server like tomcat.
         String m = "Ebean sleeping " + delaySecs + " seconds due to ebean.start.delay";
-        logger.log(Level.INFO, m);
+        logger.info(m);
         Thread.sleep(delaySecs * 1000);
 
       } catch (InterruptedException e) {
         String m = "Interrupting debug.start.delay of " + delaySecs;
-        logger.log(Level.SEVERE, m, e);
+        logger.error(m, e);
       }
     }
     try {

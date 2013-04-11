@@ -5,21 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 import javax.sql.DataSource;
 
 import com.avaje.ebean.BackgroundExecutor;
 import com.avaje.ebean.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Database sequence based IdGenerator.
  */
 public abstract class SequenceIdGenerator implements IdGenerator {
 
-  protected static final Logger logger = Logger.getLogger(SequenceIdGenerator.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(SequenceIdGenerator.class);
 
   /**
    * Used to synchronise the idList access.
@@ -139,9 +139,7 @@ public abstract class SequenceIdGenerator implements IdGenerator {
 
       if (currentlyBackgroundLoading > 0) {
         // skip as already background loading
-        if (logger.isLoggable(Level.FINE)) {
-          logger.log(Level.FINE, "... skip background sequence load (another load in progress)");
-        }
+        logger.debug("... skip background sequence load (another load in progress)");
         return;
       }
 
@@ -162,8 +160,8 @@ public abstract class SequenceIdGenerator implements IdGenerator {
 
     ArrayList<Integer> newIds = getMoreIds(numberToLoad, t);
 
-    if (logger.isLoggable(Level.FINE)) {
-      logger.log(Level.FINE, "... seq:" + seqName + " loaded:" + numberToLoad + " ids:" + newIds);
+    if (logger.isDebugEnabled()) {
+      logger.debug("... seq:" + seqName + " loaded:" + numberToLoad + " ids:" + newIds);
     }
 
     synchronized (monitor) {
@@ -230,21 +228,21 @@ public abstract class SequenceIdGenerator implements IdGenerator {
         rset.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing ResultSet", e);
+      logger.error( "Error closing ResultSet", e);
     }
     try {
       if (pstmt != null) {
         pstmt.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing PreparedStatement", e);
+      logger.error("Error closing PreparedStatement", e);
     }
     try {
       if (c != null) {
         c.close();
       }
     } catch (SQLException e) {
-      logger.log(Level.SEVERE, "Error closing Connection", e);
+      logger.error("Error closing Connection", e);
     }
   }
 
