@@ -51,10 +51,10 @@ public interface Transaction {
    */
   public void setReadOnly(boolean readOnly);
 
-  /**
-   * Log a comment to the transaction log.
-   */
-  public void log(String msg);
+//  /**
+//   * Log a comment to the transaction log.
+//   */
+//  public void log(String msg);
 
   /**
    * Set the logLevel to use for this transaction.

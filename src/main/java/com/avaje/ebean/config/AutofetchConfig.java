@@ -19,8 +19,6 @@ public class AutofetchConfig {
 
   private double profilingRate = 0.05;
 
-  private boolean useFileLogging = false;
-
   private String logDirectory;
 
   private int profileUpdateFrequency = 60;
@@ -149,22 +147,6 @@ public class AutofetchConfig {
   }
 
   /**
-   * Return true if a log file should be used to log the changes in autofetch
-   * query tuning.
-   */
-  public boolean isUseFileLogging() {
-    return useFileLogging;
-  }
-
-  /**
-   * Set to true if a log file should be used to log the changes in autofetch
-   * query tuning.
-   */
-  public void setUseFileLogging(boolean useFileLogging) {
-    this.useFileLogging = useFileLogging;
-  }
-
-  /**
    * Return the log directory to put the autofetch log.
    */
   public String getLogDirectory() {
@@ -244,8 +226,6 @@ public class AutofetchConfig {
     String rate = p.get("autofetch.profiling.rate", "0.05");
     profilingRate = Double.parseDouble(rate);
 
-    useFileLogging = p.getBoolean("autofetch.useFileLogging", profiling);
     profileUpdateFrequency = p.getInt("autofetch.profiling.updatefrequency", 60);
-
   }
 }

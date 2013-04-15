@@ -86,12 +86,6 @@ import com.avaje.ebean.text.json.JsonContext;
 public interface EbeanServer {
 
   /**
-   * Return the AdminLogging which is used to control and configure the
-   * Transaction logging at runtime.
-   */
-  public AdminLogging getAdminLogging();
-
-  /**
    * Return the AdminAutofetch which is used to control and configure the
    * Autofetch service at runtime.
    */
@@ -378,16 +372,6 @@ public interface EbeanServer {
    * @see Ebean#endTransaction()
    */
   public void endTransaction();
-
-  /**
-   * Log a comment to the transaction log of the current transaction.
-   * <p>
-   * If there is no current transaction this comment does not go anywhere.
-   * </p>
-   * 
-   * @see Ebean#logComment(String)
-   */
-  public void logComment(String msg);
 
   /**
    * Refresh the values of a bean.
